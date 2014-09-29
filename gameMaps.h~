@@ -13,9 +13,9 @@
 #define GAMEMAPS_H_
 
 #include "map.h"
-//#include "EnemyUnit.h"
-//#include "wave.h"
-//#include "type.h"
+#include "EnemyUnit.h"
+#include "wave.h"
+#include "type.h"
 #include "drawConstants.h"
 #include <vector>
 #include <string>

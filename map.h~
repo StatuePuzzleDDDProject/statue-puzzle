@@ -37,9 +37,24 @@ public:
 
 	/* PURPOSE: figures out which squares on the map should be part of the path
 	*/
+	void definePathSquares();
 
+	/* PURPOSE: draws the path in the window
+	*/
+	void drawPath();
+
+	/* PURPOSE: Releases the next unit from the current wave and returns it
+	*/
+	EnemyUnit nextUnit();
+
+	/* PURPOSE: removes the first wave in this map's wave vector after the wave is finished
+	*/
+	void removeWave();
+
+	Path getPath();
 	std::string getBuildableColor();
 	vector<vector<Square*> > getPositions();
+	vector<Point> getPathSquares();
 	int getOffset();
 
 	void setPositions(vector<vector<Square*> > positions);
@@ -51,6 +66,10 @@ private:
 	/* REMARKS: this map's height in squares
 	*/
 	double HEIGHT;
+
+	/* REMARKS: the path this map uses for EnemyUnits
+	*/
+	Path path;
 
 	/* REMARKS: the color for squares that the user can build towers on in this map
 	*/

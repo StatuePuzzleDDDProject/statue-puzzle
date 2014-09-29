@@ -99,7 +99,10 @@ int ccc_win_main() {
 			bool playerEndsGame = false;
 
 			//start of tower building and wave cycle
-	
+			while(player->getHealth() > 0 && !playerEndsGame) {
+				// read in clicks until a button is pressed
+
+			}
 		
 	}
 	return 0;

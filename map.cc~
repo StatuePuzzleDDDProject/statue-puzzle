@@ -59,6 +59,7 @@ void Map::draw() {
 		Line toDraw (lineStart, lineEnd, buildableColor);
 		cwin << toDraw;
 	}
+	drawPath();
 }
 
 

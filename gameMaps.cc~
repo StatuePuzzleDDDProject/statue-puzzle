@@ -1,0 +1,25 @@
+#include "gameMaps.h"
+#include <iostream>
+
+GameMaps::GameMaps () {
+	Type liberalArts ("LArts", "", "", 1.0);
+	Type mcs ("MatCS", "Athlt", "LabSc", 2.0);
+	Type humanities ("Humns", "SoSci", "Athlt", 2.0);
+	Type athlete ("Athlt", "Humns", "MatCS", 2.0);
+	Type socialSci ("SoSci", "LabSc", "Humns", 2.0);
+	Type labSci ("LabSc", "MatCS", "SoSci", 2.0);
+
+	EnemyUnit libArtsEnemy ("Normal", 1, liberalArts, 5, 10, 50, "black", Square());
+	EnemyUnit mcsEnemy ("MCS Student", 1, mcs, 20, 50, 300, "blue", Square());
+	EnemyUnit humanitiesEnemy ("Humanities Student", 1, humanities, 7, 30, 200, "gold", Square());
+	EnemyUnit athleteEnemy ("Athletic Student", 1, athlete, 15, 200, 500, "firebrick", Square());
+	EnemyUnit socialSciEnemy ("Social Science Student", 1, socialSci, 7, 25, 200, "sea green", Square());
+	EnemyUnit labSciEnemy ("Lab Science Student", 1, labSci, 10, 100, 350, "turquoise", Square());
+
+	Point pathStart(0,SCREEN_HEIGHT / 3);
+	Path path1(pathStart, "eeennnnnnnneeeeeeesssssssssssssswwwwwssseeeeeeeeeeeeeennnneeeeeeeeee");
+	Path path2(pathStart, "eennnnneeeesssssssssseeeennnnnnnnnneeeesssssssssseeeennnnnnnnnneeeesssssssssseeeennnnneee");
+
+	
+}
+

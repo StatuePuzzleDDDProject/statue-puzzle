@@ -31,6 +31,10 @@ public:
 	*/
 	void draw();
 
+	void drawSquares();
+
+	bool isSquareLoc(int row, int col);
+
 	/* PURPOSE: sets the coordinates of the window
 	*/
 	void initializeWindow();
@@ -40,7 +44,6 @@ public:
 
 	std::string getBuildableColor();
 	vector<vector<Square*> > getPositions();
-	int getOffset();
 
 	void setPositions(vector<vector<Square*> > positions);
 
@@ -51,6 +54,8 @@ private:
 	/* REMARKS: this map's height in squares
 	*/
 	double HEIGHT;
+
+	Square* mapSquares[6][5];
 
 	/* REMARKS: the color for squares that the user can build towers on in this map
 	*/

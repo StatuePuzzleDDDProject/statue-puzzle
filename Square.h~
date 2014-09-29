@@ -24,7 +24,7 @@ public:
 
 	/* PURPOSE: draws this Square in the window with the specified location and size
 	*/
-	void draw(double size);
+	void draw(Point location, double size);
 
 	std::string get_color() const;
 	bool get_buildable() const;

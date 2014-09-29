@@ -83,16 +83,18 @@ int ccc_win_main() {
 	// player starts new game, enters a name
 	//drawStartScreen();
 	Point clickPos(0,0);
+	currentMap = new Map ("forest green", MAP_HEIGHT, MAP_WIDTH, SQUARE_SIZE);
+	drawMap(currentMap);
+	drawInterface();
 	while(true) {
 		
 		
 
-			drawInterface();
+			
 
 			// new map, new gameMaps
 			//allMaps = new GameMaps();
-			currentMap = new Map ("forest green", MAP_HEIGHT, MAP_WIDTH, SQUARE_SIZE);
-			drawMap(currentMap);
+
 
 			//SystemUpdater systemUpdater(currentMap, player, playerStats);
 			clickPos = Point (-1,-1);

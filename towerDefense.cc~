@@ -83,6 +83,8 @@ int ccc_win_main() {
 	// player starts new game, enters a name
 	//drawStartScreen();
 	Point clickPos(0,0);
+	currentMap = new Map ("forest green", MAP_HEIGHT, MAP_WIDTH, SQUARE_SIZE);
+	drawMap(currentMap);
 	while(true) {
 		
 		
@@ -91,18 +93,14 @@ int ccc_win_main() {
 
 			// new map, new gameMaps
 			//allMaps = new GameMaps();
-			currentMap = new Map ("forest green", MAP_HEIGHT, MAP_WIDTH, SQUARE_SIZE);
-			drawMap(currentMap);
+
 
 			//SystemUpdater systemUpdater(currentMap, player, playerStats);
 			clickPos = Point (-1,-1);
 			bool playerEndsGame = false;
 
 			//start of tower building and wave cycle
-			while(player->getHealth() > 0 && !playerEndsGame) {
-				// read in clicks until a button is pressed
-
-			}
+	
 		
 	}
 	return 0;

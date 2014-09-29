@@ -26,7 +26,7 @@ Square::Square(std::string color, bool isBuildable, bool isPath, Point location)
 	this->location = location;
 }
 
-void Square::draw(double size) {
+void Square::draw(Point location, double size) {
 	drawSolidRectangle(size, size, location, WIDTH_INCREMENT, color);
 
 }

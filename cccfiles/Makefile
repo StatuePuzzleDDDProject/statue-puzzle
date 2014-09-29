@@ -24,7 +24,7 @@ CXXINCLUDEPATHS = #-I/Net/solen/home/m/c/mc38/lib/cccfiles
 
 CXX = g++
 CC = $(CXX)
-LDFLAGS = -g -pipe -L/usr/X11R6/lib $(CXX_LIBS)
+LDFLAGS = -g -pipe -L/usr/lib/X11 $(CXX_LIBS)
 CXXFLAGS = -g -pipe -Wall $(CXXINCLUDEPATHS)
 
 OBJS = $(CXX_SRCS:.cpp=.o)

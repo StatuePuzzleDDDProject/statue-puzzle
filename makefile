@@ -16,7 +16,7 @@
 
 PROGRAM = towerDefense
 
-CXX_SRCS = map.cc Square.cc towerDefense.cc player.cc \
+CXX_SRCS = map.cc Square.cc towerDefense.cc Unit.cc \
 	drawFunctions.cc \
 	drawConstants.cc
 

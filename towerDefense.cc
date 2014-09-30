@@ -9,7 +9,7 @@
  START DATE:       01/21/2013
  *****************************************************************/
 #include "ccc_win.h"
-#include "player.h"
+#include "Unit.h"
 //#include "type.h"
 //#include "tower.h"
 //#include "path.h"
@@ -33,7 +33,7 @@ using namespace std;
 //Button quit;
 //Button continueButton;
 Map* currentMap;
-Player* player;
+Unit* player;
 //ConstructionBox towerBox;
 //AttributeBox* playerStats;
 //GameMaps* allMaps;

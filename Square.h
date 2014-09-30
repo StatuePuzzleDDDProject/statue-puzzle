@@ -20,6 +20,8 @@ public:
 
 	Square (Point location);
 
+   Square (Point location, std::string color, bool isEndSquare);
+
 	Square(std::string color, bool isBuildable, bool isPath, Point location);
 
 	/* PURPOSE: draws this Square in the window with the specified location and size
@@ -55,6 +57,8 @@ private:
 	bool isOccupied;
 
 	Point location;
+
+	bool isEndSquare;
 };
 
 

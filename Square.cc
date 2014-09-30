@@ -8,14 +8,16 @@ Square::Square() {
 	this->isPath = false;
 	this->isOccupied = false;
 	this->location = Point(15, 15);
+	this->isEndSquare = false;
 }
 
-Square::Square(Point location) {
-	this->color = "blue";
+Square::Square(Point location, std::string color, bool isEndSquare) {
+	this->color = color;
 	this->isBuildable = false;
 	this->isPath = false;
 	this->isOccupied = false;
 	this->location = location;
+	this->isEndSquare = isEndSquare;
 }
 
 Square::Square(std::string color, bool isBuildable, bool isPath, Point location) {

@@ -35,6 +35,8 @@ public:
 
 	bool isSquareLoc(int row, int col);
 
+	bool endSquare(int row, int col);
+
 	/* PURPOSE: sets the coordinates of the window
 	*/
 	void initializeWindow();
@@ -60,6 +62,9 @@ private:
 	/* REMARKS: the color for squares that the user can build towers on in this map
 	*/
 	std::string buildableColor;
+	std::string endSquareColor;
+	std::string playerColor;
+	std::string statueColor;
 
 	/* REMARKS: keeps track of all of the squares on this map
 	*/

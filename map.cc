@@ -10,7 +10,10 @@
 Map::Map() {
 	this->WIDTH = 1;
 	this->HEIGHT = 1;
-	this->buildableColor = "blue";
+	this->buildableColor = "forest green";
+	this->playerColor = "blue";
+	this->statueColor = "red";
+	this->endSquareColor = "orange";
 
 	initializeWindow();
 	Square* s = new Square();
@@ -38,7 +41,14 @@ Map::Map(std::string buildableColor, double height, double width, double squareS
 	for (int row = 0; row < 6; row++) {
 		for (int col = 0; col < 5; col++) {
 			if (isSquareLoc(row,col)) {
-				mapSquares[row][col] = new Square(Point (col * SQUARE_SIZE + BOARD_OFFSET_X, (5-row) * SQUARE_SIZE + BOARD_OFFSET_Y));
+				bool isEndSquare = endSquare(row,col);
+				std::string squareColor;
+				if (isEndSquare) {
+					squareColor = endSquareColor;
+				} else {
+					squareColor = "brown";
+				}
+				mapSquares[row][col] = new Square(Point (col * SQUARE_SIZE + BOARD_OFFSET_X, (5-row) * SQUARE_SIZE + BOARD_OFFSET_Y), squareColor, isEndSquare);
 			} else {
 				mapSquares[row][col] = NULL;
 			}
@@ -46,6 +56,11 @@ Map::Map(std::string buildableColor, double height, double width, double squareS
 	}
 
 
+}
+
+bool Map::endSquare(int row, int col) {
+	if (row == 1 && (col == 1 || col == 3)) return true;
+	return false;
 }
 
 void Map::initializeWindow() {

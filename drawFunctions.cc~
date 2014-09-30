@@ -118,7 +118,7 @@ void drawNorthUnit(double squareSize, Point llcorner, std::string color) {
 }
 
 void drawSouthUnit(double squareSize, Point llcorner, std::string color) {
-	Point sectorCenter(llcorner.get_x() + squareSize * 0.4, llcorner.get_y() + squareSize * 0.2);
+	Point sectorCenter(llcorner.get_x() + squareSize * 0.42, llcorner.get_y() + squareSize * 0.2);
 	Point llcornerRect(llcorner.get_x() + squareSize * 0.35, llcorner.get_y() + squareSize * 0.45);
 	drawSector(squareSize * 0.25, -0.5, 0.5, sectorCenter, 0.05, color);
 	drawSolidRectangle(0.1 * squareSize, 0.25 * squareSize, llcornerRect, 0.05, color);

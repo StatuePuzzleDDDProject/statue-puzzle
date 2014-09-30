@@ -1,5 +1,5 @@
 map.o: map.cc cccfiles/ccc_win.h cccfiles/ccc_shap.h cccfiles/ccc_x11.h \
- map.h Square.h drawConstants.h
+ map.h Square.h drawConstants.h drawFunctions.h
 Square.o: Square.cc Square.h cccfiles/ccc_win.h cccfiles/ccc_shap.h \
  cccfiles/ccc_x11.h drawFunctions.h drawConstants.h
 towerDefense.o: towerDefense.cc cccfiles/ccc_win.h cccfiles/ccc_shap.h \

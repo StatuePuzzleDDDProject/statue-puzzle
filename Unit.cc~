@@ -47,22 +47,22 @@ void Unit::turn(int direction)
 {
 	if(direction == 0)
 	{
-		this->square->draw(SQUARE_SIZE * 0.8);
+		this->square.draw(SQUARE_SIZE * 0.8);
 		drawNorthUnit(SQUARE_SIZE,llposition,this->color);
 	}
         if(direction == 1)
 	{
-		this->square->draw(SQUARE_SIZE * 0.8);
+		this->square.draw(SQUARE_SIZE * 0.8);
 		drawSouthUnit(SQUARE_SIZE,llposition,this->color);
 	}
         if(direction == 2)
 	{
-		this->square->draw(SQUARE_SIZE * 0.8);	
+		this->square.draw(SQUARE_SIZE * 0.8);	
 		drawEastUnit(SQUARE_SIZE,llposition,this->color);
 	}
         if(direction == 3)
 	{
-		this->square->draw(SQUARE_SIZE * 0.8);
+		this->square.draw(SQUARE_SIZE * 0.8);
 		drawWestUnit(SQUARE_SIZE,llposition,this->color);
 	}
 }
@@ -77,7 +77,7 @@ void Unit::move(int direction)
 		withinLimits = isSquareLoc(newllposition);
 		if(withinLimits == true)		
 			{
-				this->square->draw(SQUARE_SIZE*0.8);		
+				this->square.draw(SQUARE_SIZE*0.8);		
 				drawNorthUnit(SQUARE_SIZE,newllposition,this->color);
 				Square* newSquare = square->get_north_neighbor();
 				square = newSquare;
@@ -90,7 +90,7 @@ void Unit::move(int direction)
 		withinLimits = isSquareLoc(newllposition);
 		if(withinLimits == true)		
 			{
-				this->square->draw(SQUARE_SIZE*0.8);		
+				this->square.draw(SQUARE_SIZE*0.8);		
 				drawSouthUnit(SQUARE_SIZE,newllposition,this->color);
 				Square* newSquare = square->get_south_neighbor();
 				square = newSquare;
@@ -103,7 +103,7 @@ void Unit::move(int direction)
 		withinLimits = isSquareLoc(newllposition);
 		if(withinLimits == true)		
 			{
-				this->square->draw(SQUARE_SIZE*0.8);		
+				this->square.draw(SQUARE_SIZE*0.8);		
 				drawEastUnit(SQUARE_SIZE,newllposition,this->color);
 				Square* newSquare = square->get_east_neighbor();
 				square = newSquare;
@@ -116,7 +116,7 @@ void Unit::move(int direction)
 		withinLimits = isSquareLoc(newllposition);
 		if(withinLimits == true)		
 			{
-				this->square->draw(SQUARE_SIZE*0.8);		
+				this->square.draw(SQUARE_SIZE*0.8);		
 				drawWestUnit(SQUARE_SIZE,newllposition,this->color);
 				Square* newSquare = square->get_west_neighbor();
 				square = newSquare;

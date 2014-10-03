@@ -35,6 +35,10 @@ public:
 	bool get_occupied() const;
 	Point get_location();
 	int get_num();
+	Square* get_north_neighbor();
+	Square* get_south_neighbor(); 
+	Square* get_east_neighbor();
+	Square* get_west_neighbor();
 
 	void set_color(std::string color);
 	void set_buildable(bool isBuildable);

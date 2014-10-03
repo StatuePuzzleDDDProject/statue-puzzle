@@ -41,10 +41,10 @@ public:
 	void set_path(bool isPath);
 	void set_occupied(bool isOccupied);
 	void set_location(Point location);
-	void Square::set_north_neighbor(Square* square);
-	void Square::set_south_neighbor(Square* square); 
-	void Square::set_east_neighbor(Square* square);
-	void Square::set_west_neighbor(Square* square);
+	void set_north_neighbor(Square* square);
+	void set_south_neighbor(Square* square); 
+	void set_east_neighbor(Square* square);
+	void set_west_neighbor(Square* square);
 
 private:
 	std::string color;

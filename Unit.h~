@@ -14,7 +14,6 @@
 #include "ccc_win.h"
 #include "Square.h"
 #include "drawConstants.h"
-#include "drawFunctions.h"
 
 class Unit {
 

@@ -73,6 +73,19 @@ int Square::get_num() {
 	return num;
 }
 
+Square* Square::get_north_neighbor() {
+	return neighborNorth;
+}
+Square* Square::get_south_neighbor() {
+	return neighborSouth;
+} 
+Square* Square::get_east_neighbor() {
+	return neighborEast;
+}
+Square* Square::get_west_neighbor() {
+	return neighborWest;
+}
+
 void Square::set_color(std::string color) {
 	this->color = color;
 }

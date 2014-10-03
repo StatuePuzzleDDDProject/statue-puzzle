@@ -16,7 +16,7 @@ Square::Square() {
 	this->neighborWest = NULL;
 }
 
-Square::Square(Point location, std::string color, bool isEndSquare, int num, Square* north, Square* south, Square east, Square* west) {
+Square::Square(Point location, std::string color, bool isEndSquare, int num) {
 	this->color = color;
 	this->isBuildable = false;
 	this->isPath = false;
@@ -24,10 +24,10 @@ Square::Square(Point location, std::string color, bool isEndSquare, int num, Squ
 	this->location = location;
 	this->isEndSquare = isEndSquare;
 	this->num = num;
-	this->neighborNorth = north;
-	this->neighborSouth = south;
-	this->neighborEast = east;
-	this->neighborWest = west;
+	this->neighborNorth = NULL;
+	this->neighborSouth = NULL;
+	this->neighborEast = NULL;
+	this->neighborWest = NULL;
 
 }
 
@@ -71,6 +71,19 @@ Point Square::get_location() {
 
 int Square::get_num() {
 	return num;
+}
+
+Square* Square::get_north_neighbor() {
+	return neighborNorth;
+}
+Square* Square::get_south_neighbor() {
+	return neighborSouth;
+} 
+Square* Square::get_east_neighbor() {
+	return neighborEast;
+}
+Square* Square::get_west_neighbor() {
+	return neighborWest;
 }
 
 void Square::set_color(std::string color) {

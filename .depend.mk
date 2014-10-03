@@ -3,9 +3,9 @@ map.o: map.cc cccfiles/ccc_win.h cccfiles/ccc_shap.h cccfiles/ccc_x11.h \
 Square.o: Square.cc Square.h cccfiles/ccc_win.h cccfiles/ccc_shap.h \
  cccfiles/ccc_x11.h drawFunctions.h drawConstants.h
 towerDefense.o: towerDefense.cc cccfiles/ccc_win.h cccfiles/ccc_shap.h \
- cccfiles/ccc_x11.h Unit.h map.h Square.h drawFunctions.h drawConstants.h
+ cccfiles/ccc_x11.h Unit.h Square.h drawConstants.h drawFunctions.h map.h
 Unit.o: Unit.cc Unit.h cccfiles/ccc_win.h cccfiles/ccc_shap.h \
- cccfiles/ccc_x11.h
+ cccfiles/ccc_x11.h Square.h drawConstants.h drawFunctions.h
 drawFunctions.o: drawFunctions.cc drawFunctions.h cccfiles/ccc_win.h \
  cccfiles/ccc_shap.h cccfiles/ccc_x11.h drawConstants.h Square.h
 drawConstants.o: drawConstants.cc

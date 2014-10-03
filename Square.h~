@@ -59,6 +59,9 @@ private:
 	Point location;
 
 	bool isEndSquare;
+
+	int row;
+	int col;
 };
 
 

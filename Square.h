@@ -20,7 +20,7 @@ public:
 
 	Square (Point location);
 
-   Square (Point location, std::string color, bool isEndSquare);
+   Square (Point location, std::string color, bool isEndSquare, int col, int row);
 
 	Square(std::string color, bool isBuildable, bool isPath, Point location);
 

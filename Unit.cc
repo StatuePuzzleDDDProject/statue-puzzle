@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Unit.h"
+#include "Square.h"
 //#include "category.h"
 
 Unit::Unit(int o, Point p, string c, Square s) {

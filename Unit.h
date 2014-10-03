@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 #include "ccc_win.h"
+#include "Square.h"
 
 class Unit {
 
@@ -22,7 +23,7 @@ public:
 private:
 
 int orientation; //0:North 1:South 2:East 3:West
-Point position; 
+Point llposition; 
 string color;
 Square square;
 
@@ -34,9 +35,9 @@ int getOrientation();
 
 void setOrientation(int o);
 
-Point getPosition();
+Point getLLPosition();
 
-void setPosition(Point p);
+void setLLPosition(Point p);
 
 Square getSquare();
 

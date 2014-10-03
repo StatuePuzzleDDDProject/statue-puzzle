@@ -49,7 +49,7 @@ Map::Map(std::string buildableColor, double height, double width, double squareS
 				} else {
 					squareColor = "brown";
 				}
-				mapSquares[row][col] = new Square(Point (col * SQUARE_SIZE + BOARD_OFFSET_X, (5-row) * SQUARE_SIZE + BOARD_OFFSET_Y), squareColor, isEndSquare);
+				mapSquares[row][col] = new Square(Point (col * SQUARE_SIZE + BOARD_OFFSET_X, (5-row) * SQUARE_SIZE + BOARD_OFFSET_Y), squareColor, isEndSquare, row, col);
 			} else {
 				mapSquares[row][col] = NULL;
 			}

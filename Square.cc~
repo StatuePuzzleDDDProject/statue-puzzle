@@ -13,15 +13,13 @@ Square::Square() {
 	this->col = 0;
 }
 
-Square::Square(Point location, std::string color, bool isEndSquare, int row, int col) {
+Square::Square(Point location, std::string color, bool isEndSquare) {
 	this->color = color;
 	this->isBuildable = false;
 	this->isPath = false;
 	this->isOccupied = false;
 	this->location = location;
 	this->isEndSquare = isEndSquare;
-	this->row = row;
-	this->col = col;
 }
 
 Square::Square(std::string color, bool isBuildable, bool isPath, Point location) {
@@ -30,8 +28,6 @@ Square::Square(std::string color, bool isBuildable, bool isPath, Point location)
 	this->isPath = isPath;
 	this->isOccupied = false;
 	this->location = location;
-	this->row = 0;
-	this->col = 0;
 }
 
 void Square::draw(double size) {

@@ -20,7 +20,7 @@ class Unit {
 
 public:
 
-	Unit(int o, Point p, string c, Square s);
+	Unit(int o, Point p, string c, Square* s);
 
 private:
 
@@ -41,9 +41,9 @@ Point getLLPosition();
 
 void setLLPosition(Point p);
 
-Square getSquare();
+Square* getSquare();
 
-void setSquare(Square s);
+void setSquare(Square* s);
 
 string getColor();
 

@@ -17,12 +17,14 @@ class Unit {
 
 public:
 
-	Unit(int o, Point p);
+	Unit(int o, Point p, string c, Square s);
 
 private:
 
 int orientation; //0:North 1:South 2:East 3:West
 Point position; 
+string color;
+Square square;
 
 void turn(int direction); //type = 0 => turn and type = 1 => move //direction 0:North 1:South 2:East 3:West
 
@@ -35,8 +37,14 @@ void setOrientation(int o);
 Point getPosition();
 
 void setPosition(Point p);
-	
-void draw(int type, int direction);
+
+Square getSquare();
+
+void setSquare(Square s);
+
+string getColor();
+
+void setColor(string c);
 };
 
 #endif 

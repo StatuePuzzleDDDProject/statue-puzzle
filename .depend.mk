@@ -7,5 +7,5 @@ towerDefense.o: towerDefense.cc cccfiles/ccc_win.h cccfiles/ccc_shap.h \
 Unit.o: Unit.cc Unit.h cccfiles/ccc_win.h cccfiles/ccc_shap.h \
  cccfiles/ccc_x11.h
 drawFunctions.o: drawFunctions.cc drawFunctions.h cccfiles/ccc_win.h \
- cccfiles/ccc_shap.h cccfiles/ccc_x11.h drawConstants.h
+ cccfiles/ccc_shap.h cccfiles/ccc_x11.h drawConstants.h Square.h
 drawConstants.o: drawConstants.cc

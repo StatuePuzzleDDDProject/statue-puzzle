@@ -74,8 +74,14 @@ int max(int a, int b);
 */
 void drawMapTower(double squareSize, Point llcorner, std::string primaryColor, std::string secondaryColor);
 
-void drawLeftUnit(double squareSize, Point llcorner, std::string color);
+void drawWestUnit(double squareSize, Point llcorner, std::string color);
 
-void drawRightUnit(double squareSize, Point llcorner, std::string color);
+void drawEastUnit(double squareSize, Point llcorner, std::string color);
+
+void drawNorthUnit(double squareSize, Point llcorner, std::string color);
+
+void drawSouthUnit(double squareSize, Point llcorner, std::string color);
+
+bool isSquareLoc(int row, int col);
 
 #endif /* DRAWFUNCTIONS_H_ */

@@ -82,4 +82,6 @@ void drawNorthUnit(double squareSize, Point llcorner, std::string color);
 
 void drawSouthUnit(double squareSize, Point llcorner, std::string color);
 
+bool isSquareLoc(int num);
+
 #endif /* DRAWFUNCTIONS_H_ */

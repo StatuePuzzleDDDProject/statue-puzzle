@@ -14,13 +14,14 @@
 #include <string>
 #include "ccc_win.h"
 
+
 class Square {
 public:
 	Square ();
 
 	Square (Point location);
 
-   Square (Point location, std::string color, bool isEndSquare, int col, int row);
+   Square (Point location, std::string color, bool isEndSquare, int num);
 
 	Square(std::string color, bool isBuildable, bool isPath, Point location);
 
@@ -33,12 +34,17 @@ public:
 	bool get_path() const;
 	bool get_occupied() const;
 	Point get_location();
+	int get_num();
 
 	void set_color(std::string color);
 	void set_buildable(bool isBuildable);
 	void set_path(bool isPath);
 	void set_occupied(bool isOccupied);
 	void set_location(Point location);
+	void set_north_neighbor(Square* square);
+	void set_south_neighbor(Square* square); 
+	void set_east_neighbor(Square* square);
+	void set_west_neighbor(Square* square);
 
 private:
 	std::string color;
@@ -60,8 +66,13 @@ private:
 
 	bool isEndSquare;
 
-	int row;
-	int col;
+	int num;
+
+	Square* neighborNorth;
+	Square* neighborSouth;
+	Square* neighborEast;
+	Square* neighborWest;
+
 };
 
 

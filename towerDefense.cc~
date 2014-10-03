@@ -53,6 +53,26 @@ void drawMap(Map* map) {
 }
 
 
+
+
+// finds the square on the map that Point p is inside
+Square* pointToSquare(Point p) {
+	vector<vector<Square*> > mapSquares = currentMap->getPositions();
+	for (unsigned int i = 0; i < mapSquares.size(); i++) {
+		for (unsigned int j = 0; j < mapSquares[i].size(); j++) {
+			double x = p.get_x();
+			double y = p.get_y();
+			double squareX = mapSquares[i][j]->get_location().get_x();
+			double squareY = mapSquares[i][j]->get_location().get_y();
+			if (x >= squareX && x <= squareX + SQUARE_SIZE && y >= squareY && y <= squareY + SQUARE_SIZE) {
+				return mapSquares[i][j];
+			}
+		}
+	}
+	//need to error handle here
+	return new Square();
+}
+
 void takeOutTheTrash() {
 	delete currentMap;
 	delete player;

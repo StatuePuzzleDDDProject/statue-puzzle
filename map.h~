@@ -33,7 +33,7 @@ public:
 
 	void drawSquares();
 
-	bool endSquare(int num);
+	bool endSquare(int row, int col);
 
 	/* PURPOSE: sets the coordinates of the window
 	*/

@@ -9,19 +9,26 @@ Square::Square() {
 	this->isOccupied = false;
 	this->location = Point(15, 15);
 	this->isEndSquare = false;
-	this->row = 0;
-	this->col = 0;
+	this->num = 0;
+	this->neighborNorth = NULL;
+	this->neighborSouth = NULL;
+	this->neighborEast = NULL;
+	this->neighborWest = NULL;
 }
 
-Square::Square(Point location, std::string color, bool isEndSquare, int row, int col) {
+Square::Square(Point location, std::string color, bool isEndSquare, int num) {
 	this->color = color;
 	this->isBuildable = false;
 	this->isPath = false;
 	this->isOccupied = false;
 	this->location = location;
 	this->isEndSquare = isEndSquare;
-	this->row = row;
-	this->col = col;
+	this->num = num;
+	this->neighborNorth = NULL;
+	this->neighborSouth = NULL;
+	this->neighborEast = NULL;
+	this->neighborWest = NULL;
+
 }
 
 Square::Square(std::string color, bool isBuildable, bool isPath, Point location) {
@@ -30,8 +37,11 @@ Square::Square(std::string color, bool isBuildable, bool isPath, Point location)
 	this->isPath = isPath;
 	this->isOccupied = false;
 	this->location = location;
-	this->row = 0;
-	this->col = 0;
+	this->num = 0;
+	this->neighborNorth = NULL;
+	this->neighborSouth = NULL;
+	this->neighborEast = NULL;
+	this->neighborWest = NULL;
 }
 
 void Square::draw(double size) {
@@ -59,6 +69,10 @@ Point Square::get_location() {
 	return location;
 }
 
+int Square::get_num() {
+	return num;
+}
+
 void Square::set_color(std::string color) {
 	this->color = color;
 }
@@ -77,4 +91,20 @@ void Square::set_occupied(bool isOccupied) {
 
 void Square::set_location(Point location) {
 	this->location = location;
+}
+
+void Square::set_north_neighbor(Square* square) {
+	neighborNorth = square;
+}
+
+void Square::set_south_neighbor(Square* square) {
+	neighborSouth = square;
+}
+
+void Square::set_east_neighbor(Square* square) {
+	neighborEast = square;
+}
+
+void Square::set_west_neighbor(Square* square) {
+	neighborWest = square;
 }

@@ -124,3 +124,13 @@ void drawSouthUnit(double squareSize, Point llcorner, std::string color) {
 	drawSolidRectangle(0.1 * squareSize, 0.25 * squareSize, llcornerRect, 0.05, color);
 }
 
+bool isSquareLoc(int num) {
+	if (num == 15 || num == 19 || num == 20 || num == 24 || num == 25 || num == 26 || num == 28 || num == 29) {
+		return false;
+	} else if (num >= 0 && num < 30) {
+		return true;
+	} else {
+		return false;
+	}
+}
+

@@ -72,54 +72,54 @@ void Unit::move(int direction)
 	
 	if(direction == 0)
 	{
-		Point newllposition = new Point(llposition.get_x()-SQUARE_SIZE,llposition.get_y());
-		bool withinLimits = true;		
-		withinLimits = isSquareLoc(newllposition);
+		Point* newllposition = new Point(llposition.get_x()-SQUARE_SIZE,llposition.get_y());
+		bool withinLimits = true;
+		Square* newSquare = this->square->get_north_neighbor();		
+		withinLimits = isSquareLoc(newSquare->get_num());
 		if(withinLimits == true)		
 			{
 				this->square->draw(SQUARE_SIZE*0.8);		
 				drawNorthUnit(SQUARE_SIZE,newllposition,this->color);
-				Square* newSquare = square->get_north_neighbor();
-				square = newSquare;
+				this->square = newSquare;
 			}
 	}
         if(direction == 1)
 	{
-		Point newllposition = new Point(llposition.get_x()-SQUARE_SIZE,llposition.get_y());
-		bool withinLimits = true;		
-		withinLimits = isSquareLoc(newllposition);
+		Point* newllposition = new Point(llposition.get_x()-SQUARE_SIZE,llposition.get_y());
+		bool withinLimits = true;	
+		Square* newSquare = this->square->get_south_neighbor();	
+		withinLimits = isSquareLoc(newSquare->get_num());
 		if(withinLimits == true)		
 			{
 				this->square->draw(SQUARE_SIZE*0.8);		
 				drawSouthUnit(SQUARE_SIZE,newllposition,this->color);
-				Square* newSquare = square->get_south_neighbor();
-				square = newSquare;
+				this->square = newSquare;	 
 			}
 	}
         if(direction == 2)
 	{
-		Point newllposition = new Point(llposition.get_x()-SQUARE_SIZE,llposition.get_y());
-		bool withinLimits = true;		
-		withinLimits = isSquareLoc(newllposition);
+		Point* newllposition = new Point(llposition.get_x()-SQUARE_SIZE,llposition.get_y());
+		bool withinLimits = true;	
+		Square* newSquare = this->square->get_east_neighbor();	
+		withinLimits = isSquareLoc(newSquare->get_num());
 		if(withinLimits == true)		
 			{
 				this->square->draw(SQUARE_SIZE*0.8);		
 				drawEastUnit(SQUARE_SIZE,newllposition,this->color);
-				Square* newSquare = square->get_east_neighbor();
-				square = newSquare;
+				this->square = newSquare;
 			}
 	}
         if(direction == 3)
 	{
-		Point newllposition = new Point(llposition.get_x()-SQUARE_SIZE,llposition.get_y());
-		bool withinLimits = true;		
-		withinLimits = isSquareLoc(newllposition);
+		Point* newllposition = new Point(llposition.get_x()-SQUARE_SIZE,llposition.get_y());
+		bool withinLimits = true;
+		Square* newSquare = this->square->get_west_neighbor();		
+		withinLimits = isSquareLoc(newSquare.get_num());
 		if(withinLimits == true)		
 			{
 				this->square->draw(SQUARE_SIZE*0.8);		
 				drawWestUnit(SQUARE_SIZE,newllposition,this->color);
-				Square* newSquare = square->get_west_neighbor();
-				square = newSquare;
+				this->square  = newSquare;
 			}
 	}
 	

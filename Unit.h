@@ -48,6 +48,16 @@ void setSquare(Square* s);
 string getColor();
 
 void setColor(string c);
+
+void moveNorth();
+void moveSouth();
+void moveEast();
+void moveWest();
+
+void turnNorth();
+void turnSouth();
+void turnEast();
+void turnWest();
 };
 
 #endif 

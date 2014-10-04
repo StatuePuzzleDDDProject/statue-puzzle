@@ -24,21 +24,19 @@ public:
 
 	ConstructionBox();
 
-	ConstructionBox(vector<string> towers, double mapWidth, double mapHeight, std::string color, Point llcorner);
-
-	void createTitle();
-
-	void createIcons();
+	ConstructionBox(double mapWidth, double mapHeight, std::string color, Point llcorner);
 
 	void createButtons();
 
 	void draw();
 
-	Button getReadyButton() const;
+	Button getTurnCButton() const;
 
-	Button getCancelButton() const;
+	Button getTurnCCButton() const;
 
 	Button getEndGameButton() const;
+
+	Button getResetButton() const;
 
 	double getBoxHeight() const;
 
@@ -48,27 +46,12 @@ public:
 
 private:
 
-	Button cancelTower;
-	Button ready;
+	Button turnC;
+	Button turnCC;
 	Button endGame;
+	Button reset;
 	double BOX_WIDTH;
 	double BOX_HEIGHT;
-
-	/* REMARKS: the width of each towerButton in this ConstructionBox
-	*/
-	double ICON_WIDTH;
-
-	/* REMARKS: the height of each towerButton in this ConstructionBox
-	*/
-	double ICON_HEIGHT;
-	std::string title;
-	Point titlePos;
-
-	/* REMARKS: the number of tower options the player has for building towers
-	*/
-	int NUM_STATS;
-	vector<Point> iconTextPositions;
-	vector<Point> iconPositions;
 	std::string color;
 	Point llcorner;
 

@@ -17,7 +17,7 @@
 PROGRAM = towerDefense
 
 CXX_SRCS = map.cc Square.cc towerDefense.cc Unit.cc \
-	drawFunctions.cc button.cc \
+	drawFunctions.cc button.cc constructionBox.cc \
 	drawConstants.cc
 
 CXXLIBS = -lX11

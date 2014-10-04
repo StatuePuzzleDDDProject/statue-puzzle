@@ -8,4 +8,6 @@ Unit.o: Unit.cc Unit.h cccfiles/ccc_win.h cccfiles/ccc_shap.h \
  cccfiles/ccc_x11.h Square.h drawConstants.h drawFunctions.h
 drawFunctions.o: drawFunctions.cc drawFunctions.h cccfiles/ccc_win.h \
  cccfiles/ccc_shap.h cccfiles/ccc_x11.h drawConstants.h Square.h
+button.o: button.cc button.h cccfiles/ccc_win.h cccfiles/ccc_shap.h \
+ cccfiles/ccc_x11.h drawConstants.h Square.h drawFunctions.h
 drawConstants.o: drawConstants.cc

@@ -6,75 +6,78 @@
 ConstructionBox::ConstructionBox() {
 }
 
-ConstructionBox::ConstructionBox(vector<string> towers, double mapWidth, double mapHeight, std::string color, Point llcorner) {
+ConstructionBox::ConstructionBox(double mapWidth, double mapHeight, std::string color, Point llcorner) {
 	this->BOX_WIDTH = mapWidth;
 	this->BOX_HEIGHT = mapHeight / 5;
-	this->title = "Towers";
 
-
-	this->NUM_STATS = towers.size();
-	this->ICON_WIDTH = BOX_WIDTH / 10;
-	this->ICON_HEIGHT = ICON_WIDTH;
 	this->color = color;
 	this->llcorner = llcorner;
-	createTitle();
 	createButtons();
-	createIcons();
 }
-
-void ConstructionBox::createTitle() {
-	int titleLength = title.size();
-	const double TITLE_X_POS = BOX_WIDTH / 2 - titleLength / 4;
-	const double TITLE_Y_POS = BOX_HEIGHT;
-	titlePos = Point(TITLE_X_POS, TITLE_Y_POS);
-}
-
-
 
 void ConstructionBox::createButtons() {
-	const std::string cancelText = "Cancel";
-	const std::string readyText = "I'm Ready!";
+	const std::string turnCText = "Turn \nClockwise";
+	const std::string turnCCText = "Turn \nCounterclockwise";
 	const std::string endGameText = "End Game";
+	const std::string resetText = "Reset Board";
 
-	const double BUTTON_HEIGHT = BOX_HEIGHT / 5;
+	const double BUTTON_HEIGHT = BOX_HEIGHT / 4;
 
 	const double X_OFFSET = BOX_WIDTH * 1.0 / 15;
 	const double Y_OFFSET = BOX_HEIGHT * 1.0 / 10;
 
-	double buttonWidth = CHAR_WIDTH * max(max(cancelText.size(), readyText.size()), endGameText.size());
+	double turnCWidth = CHAR_WIDTH * turnCText.size();
+	double turnCCWidth = CHAR_WIDTH * turnCCText.size();
+	double endGameWidth = CHAR_WIDTH * endGameText.size();
+	double resetWidth = CHAR_WIDTH * resetText.size();
 
-	const double BUTTON_X_POS = BOX_WIDTH - X_OFFSET - buttonWidth;
-	const double BUTTON_Y_POS = BOX_HEIGHT - Y_OFFSET - BUTTON_HEIGHT;
+	const double TURNC_X_POS = BOX_WIDTH - X_OFFSET - turnCWidth;
+	const double TURNC_Y_POS = BOX_HEIGHT - Y_OFFSET - BUTTON_HEIGHT;
 
-	Point cancelButtonPos(BUTTON_X_POS, BUTTON_Y_POS);
-	cancelTower = Button(cancelButtonPos, BUTTON_HEIGHT, cancelText, "white");
-	Point readyButtonPos(BUTTON_X_POS, BUTTON_Y_POS - Y_OFFSET - BUTTON_HEIGHT);
-	ready = Button(readyButtonPos, BUTTON_HEIGHT, readyText, "white");
-	Point endGameButtonPos(BUTTON_X_POS, BUTTON_Y_POS - 2 * Y_OFFSET - 2 * BUTTON_HEIGHT);
+	const double TURNCC_X_POS = BOX_WIDTH - X_OFFSET - turnCCWidth;
+	const double TURNCC_Y_POS = BOX_HEIGHT - Y_OFFSET - BUTTON_HEIGHT;
+
+	const double ENDGAME_X_POS = BOX_WIDTH - X_OFFSET - endGameWidth;
+	const double ENDGAME_Y_POS = BOX_HEIGHT - Y_OFFSET - BUTTON_HEIGHT;
+
+	const double RESET_X_POS = BOX_WIDTH - X_OFFSET - resetWidth;
+	const double RESET_Y_POS = BOX_HEIGHT - Y_OFFSET - BUTTON_HEIGHT;
+
+	Point turnCButtonPos(TURNC_X_POS, TURNC_Y_POS);
+	turnC = Button(turnCButtonPos, BUTTON_HEIGHT, turnCText, "white");
+	Point turnCCButtonPos(TURNCC_X_POS, TURNCC_Y_POS - Y_OFFSET - BUTTON_HEIGHT);
+	turnCC = Button(turnCCButtonPos, BUTTON_HEIGHT, turnCCText, "white");
+	Point endGameButtonPos(ENDGAME_X_POS, ENDGAME_Y_POS - 2 * Y_OFFSET - 2 * BUTTON_HEIGHT);
 	endGame = Button(endGameButtonPos, BUTTON_HEIGHT, endGameText, "white");
+	Point resetButtonPos(RESET_X_POS, RESET_Y_POS - 2 * Y_OFFSET - 2 * BUTTON_HEIGHT);
+	reset = Button(resetButtonPos, BUTTON_HEIGHT, resetText, "white");
 }
 
 void ConstructionBox::draw() {
 	drawSolidRectangle(BOX_WIDTH, BOX_HEIGHT, llcorner, WIDTH_INCREMENT, color);
-	cwin << Message(titlePos, title);
 	
 	//draws buttons
-	cancelTower.draw();
-	ready.draw();
+	turnC.draw();
+	turnCC.draw();
 	endGame.draw();
+	reset.draw();
 
 }
 
-Button ConstructionBox::getReadyButton() const {
+Button ConstructionBox::getTurnCButton() const {
 	return ready;
 }
 
-Button ConstructionBox::getCancelButton() const {
+Button ConstructionBox::getTurnCCButton() const {
 	return cancelTower;
 }
 
 Button ConstructionBox::getEndGameButton() const {
 	return endGame;
+}
+
+Button ConstructionBox::getResetButton() const {
+	return reset;
 }
 
 double ConstructionBox::getBoxHeight() const {

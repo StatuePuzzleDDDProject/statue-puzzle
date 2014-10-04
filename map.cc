@@ -27,6 +27,9 @@ Map::~Map() {
 	for (int i = 0; i < 30; i++) {
 		delete mapSquares[i];
 	}
+	delete player;
+	delete statueTop;
+	delete statueBottom;
 }
 
 Map::Map(std::string buildableColor, double height, double width, double squareSize) {
@@ -34,6 +37,8 @@ Map::Map(std::string buildableColor, double height, double width, double squareS
 	this->WIDTH = width;
 	this->buildableColor = buildableColor;
 	this->endSquareColor = "orange";
+	this->playerColor = "blue";
+	this->statueColor = "red";
 	initializeWindow();
 
 	//first, fill map with buildable squares
@@ -152,6 +157,23 @@ Map::Map(std::string buildableColor, double height, double width, double squareS
 
 	mapSquares[27]->set_north_neighbor(mapSquares[22]);
 
+	//set up Units
+	player = new Unit("north", mapSquares[17]->get_location(), playerColor, mapSquares[17]);
+	statueTop = new Unit("south", mapSquares[2]->get_location(), statueColor, mapSquares[2]);
+	statueBottom = new Unit("north", mapSquares[27]->get_location(), statueColor, mapSquares[27]);
+
+}
+
+Unit* Map::get_player() {
+	return player;
+}
+
+Unit* Map::get_top_statue() {
+	return statueTop;
+}
+
+Unit* Map::get_bottom_statue() {
+	return statueBottom;
 }
 
 bool Map::endSquare(int num) {
@@ -172,7 +194,7 @@ void Map::draw() {
 		cwin << toDraw;
 	}
 	drawSquares();
-
+	drawUnits();
 
 }
 
@@ -182,6 +204,12 @@ void Map::drawSquares() {
 			mapSquares[i]->draw(SQUARE_SIZE * 0.8);
 		} 
 	}
+}
+
+void Map::drawUnits() {
+	drawNorthUnit(SQUARE_SIZE, mapSquares[17]->get_location(), playerColor);
+	drawSouthUnit(SQUARE_SIZE, mapSquares[2]->get_location(), statueColor);
+	drawNorthUnit(SQUARE_SIZE, mapSquares[27]->get_location(), statueColor);
 }
 
 std::string Map::getBuildableColor() {

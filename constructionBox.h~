@@ -13,25 +13,18 @@
 #define CONSTRUCTIONBOX_H_
 
 #include "ccc_win.h"
-#include "category.h"
-#include "player.h"
-#include "tower.h"
 #include "drawConstants.h"
 #include "drawFunctions.h"
 #include "Square.h"
 #include "button.h"
-#include "towerButton.h"
+
 
 class ConstructionBox {
 public:
 
 	ConstructionBox();
 
-	ConstructionBox(vector<string> towers, double mapWidth, double mapHeight, std::string color, Point llcorner);
-
-	void createTitle();
-
-	void createIcons();
+	ConstructionBox(double mapWidth, double mapHeight, std::string color, Point llcorner);
 
 	void createButtons();
 
@@ -56,22 +49,6 @@ private:
 	Button endGame;
 	double BOX_WIDTH;
 	double BOX_HEIGHT;
-
-	/* REMARKS: the width of each towerButton in this ConstructionBox
-	*/
-	double ICON_WIDTH;
-
-	/* REMARKS: the height of each towerButton in this ConstructionBox
-	*/
-	double ICON_HEIGHT;
-	std::string title;
-	Point titlePos;
-
-	/* REMARKS: the number of tower options the player has for building towers
-	*/
-	int NUM_STATS;
-	vector<Point> iconTextPositions;
-	vector<Point> iconPositions;
 	std::string color;
 	Point llcorner;
 

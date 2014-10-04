@@ -15,8 +15,7 @@
 #include <string>
 #include <vector>
 #include "Square.h"
-//#include "path.h"
-//#include "wave.h"
+#include "Unit.h"
 
 class Map {
 public:
@@ -27,11 +26,17 @@ public:
 
 	Map(std::string buildableColor, double height, double width, double squareSize);
 
+	Unit* get_player();
+	Unit* get_top_statue();
+	Unit* get_bottom_statue();
+
 	/* PURPOSE: draws this map in the window along with its path
 	*/
 	void draw();
 
 	void drawSquares();
+
+	void drawUnits();
 
 	bool endSquare(int num);
 
@@ -67,6 +72,9 @@ private:
 	vector<vector<Square*> > positions;
 
 	Square* mapSquares[30];
+	Unit* player;
+	Unit* statueTop;
+	Unit* statueBottom;
 
 
 };

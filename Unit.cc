@@ -1,99 +1,97 @@
 #include <iostream>
 #include "Unit.h"
 #include "Square.h"
-//#include "category.h"
 
-
-Unit::Unit(int o, Point p, string c, Square* s) {
-	this->orientation = o; //0:North 1:South 2:East 3:West
-	this->llposition = p; 
-	this->color = c;
-	this->square = s;
+Unit::Unit(string orientation, Point point, string color, Square* square) {
+	this->orientation = orientation; 
+	this->llposition = point; 
+	this->color = color;
+	this->square = square;
 }
 
-int Unit::getOrientation(){
+string Unit::getOrientation(){
 	return this->orientation;
 }
 
-void Unit::setOrientation(int o){
-	this->orientation = o;
+void Unit::setOrientation(string orientation){
+	this->orientation = orientation;
 }
 
 Point Unit::getLLPosition(){
 	return this->llposition;
 }
 
-void Unit::setLLPosition(Point p){
-	this->llposition = p;
+void Unit::setLLPosition(Point point){
+	this->llposition = point;
 }
 
 string Unit::getColor(){
 	return this->color;
 }
 
-void Unit::setColor(string c){
-	this->color = c;
+void Unit::setColor(string color){
+	this->color = color;
 }
 
 Square* Unit::getSquare(){
 	return this->square;
 }
 
-void Unit::setSquare(Square* s){
-	this->square = s;
+void Unit::setSquare(Square* square){
+	this->square = square;
 }
 
 void Unit::turnNorth()
 {
 	this->square->draw(SQUARE_SIZE * 0.8);
 	drawNorthUnit(SQUARE_SIZE,llposition,this->color);
-	this->orientation = 0;
+	this->orientation = "north";
 }
 
 void Unit::turnSouth()
 {
 	this->square->draw(SQUARE_SIZE * 0.8);
 	drawSouthUnit(SQUARE_SIZE,llposition,this->color);
-	this->orientation = 1;
+	this->orientation = "south";
 }
 
 void Unit::turnEast()
 {
 	this->square->draw(SQUARE_SIZE * 0.8);	
 	drawEastUnit(SQUARE_SIZE,llposition,this->color);
-	this->orientation = 2;
+	this->orientation = "east";
 }
 
 void Unit::turnWest()
 {
 	this->square->draw(SQUARE_SIZE * 0.8);
 	drawWestUnit(SQUARE_SIZE,llposition,this->color);
-	this->orientation = 3;
+	this->orientation = "west";
 }
 
-void Unit::turn(int direction)
+void Unit::turn(string direction)
 {
 	
-       if(direction == 0)
+       if(direction.compare("left"))
        {
-	if(orientation == 0)
+	if(orientation.compare("north") == 0)
 		turnWest();
-	else if(orientation == 1)
+	else if(orientation.compare("south") == 0)
 		turnEast();
-	else if(orientation == 2)
+	else if(orientation.compare("east") == 0)
 		turnNorth();
-	else if(orientation == 3)
+	else if(orientation.compare("west") == 0)
 		turnSouth();
        }
-       else if(direction == 1)
+       else if(direction.compare("south"))
        {
-	if(orientation == 0)
+	if(orientation.compare("north") == 0)
 		turnEast();
-	else if(orientation == 1)
+	else if(orientation.compare("south") == 0)
 		turnWest();
-	else if(orientation == 2)
+	else if(orientation.compare("east") == 0)
 		turnSouth();
-	else if(orientation == 3)
+	else if(orientation.compare("west") == 0)
 		turnNorth();
        }
 }
@@ -154,18 +152,18 @@ void Unit::moveWest()
 			this->square  = newSquare;
 		}
 }
-void Unit::move(int direction) // 0 : left, 1 :right
+void Unit::move() 
 {
- 	if(this->orientation == 0)
+ 	if(this->orientation.compare("north") == 0)
 	{
 	 moveNorth();
-	}else if(this->orientation == 1)
+	}else if(this->orientation.compare("south") == 0)
 	{
 	 moveSouth();
-	}else if(this->orientation == 2)
+	}else if(this->orientation.compare("east") == 0)
 	{
          moveEast();
-	}else if(this->orientation == 3)
+	}else if(this->orientation.compare("west") == 0)
 	{
          moveWest();
 	}	

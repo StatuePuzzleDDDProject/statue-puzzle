@@ -20,34 +20,34 @@ class Unit {
 
 public:
 
-	Unit(int o, Point p, string c, Square* s);
+	Unit(string orientation, Point point, string color, Square* square);
 
 private:
 
-int orientation; //0:North 1:South 2:East 3:West
+string orientation; //0:North 1:South 2:East 3:West
 Point llposition; 
 string color;
 Square* square;
 
-void turn(int direction); //type = 0 => turn and type = 1 => move //direction 0:North 1:South 2:East 3:West
+void turn(string direction); 
 
-void move(int direction);
+void move();
 
-int getOrientation();
+string getOrientation();
 
-void setOrientation(int o);
+void setOrientation(string orientation);
 
 Point getLLPosition();
 
-void setLLPosition(Point p);
+void setLLPosition(Point point);
 
 Square* getSquare();
 
-void setSquare(Square* s);
+void setSquare(Square* square);
 
 string getColor();
 
-void setColor(string c);
+void setColor(string color);
 
 void moveNorth();
 void moveSouth();

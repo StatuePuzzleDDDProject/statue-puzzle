@@ -63,32 +63,41 @@ Map::Map(std::string buildableColor, double height, double width, double squareS
 			mapSquares[i] = new Square(Point (i % 5 * SQUARE_SIZE + BOARD_OFFSET_X, row * SQUARE_SIZE + BOARD_OFFSET_Y), squareColor, isEndSquare, i);
 		} else {
 			mapSquares[i] = NULL;
+			cout << "NULL: " << i << endl;
 		}
 	}
 
 	//then, set square neighbors
 	mapSquares[0]->set_south_neighbor(mapSquares[5]);
 	mapSquares[0]->set_east_neighbor(mapSquares[1]);
+	//mapSquares[0]->set_west_neighbor(NULL);
+	//mapSquares[0]->set_north_neighbor(NULL);
 
 	mapSquares[1]->set_south_neighbor(mapSquares[6]);
 	mapSquares[1]->set_east_neighbor(mapSquares[2]);
 	mapSquares[1]->set_west_neighbor(mapSquares[0]);
+	//mapSquares[1]->set_north_neighbor(NULL);
 
 	mapSquares[2]->set_south_neighbor(mapSquares[7]);
 	mapSquares[2]->set_east_neighbor(mapSquares[3]);
 	mapSquares[2]->set_west_neighbor(mapSquares[1]);
+	//mapSquares[2]->set_north_neighbor(NULL);
 
 	mapSquares[3]->set_south_neighbor(mapSquares[8]);
 	mapSquares[3]->set_east_neighbor(mapSquares[4]);
 	mapSquares[3]->set_west_neighbor(mapSquares[2]);
+	//mapSquares[3]->set_north_neighbor(NULL);
 
 	mapSquares[4]->set_west_neighbor(mapSquares[3]);
 	mapSquares[4]->set_south_neighbor(mapSquares[9]);
+	//mapSquares[4]->set_north_neighbor(NULL);
+	//mapSquares[4]->set_east_neighbor(NULL);
 
 	//second row
 	mapSquares[5]->set_south_neighbor(mapSquares[10]);
 	mapSquares[5]->set_east_neighbor(mapSquares[6]);
 	mapSquares[5]->set_north_neighbor(mapSquares[0]);
+	//mapSquares[5]->set_west_neighbor(NULL);
 
 	mapSquares[6]->set_south_neighbor(mapSquares[11]);
 	mapSquares[6]->set_east_neighbor(mapSquares[7]);
@@ -108,32 +117,39 @@ Map::Map(std::string buildableColor, double height, double width, double squareS
 	mapSquares[9]->set_north_neighbor(mapSquares[4]);
 	mapSquares[9]->set_west_neighbor(mapSquares[8]);
 	mapSquares[9]->set_south_neighbor(mapSquares[14]);
+	//mapSquares[9]->set_east_neighbor(NULL);
 
 	//third row
 	mapSquares[10]->set_north_neighbor(mapSquares[5]);
 	mapSquares[10]->set_east_neighbor(mapSquares[11]);
+	//mapSquares[10]->set_west_neighbor(NULL);
+	//mapSquares[10]->set_south_neighbor(mapSquares[15]);	
 
 	mapSquares[11]->set_north_neighbor(mapSquares[6]);
-	mapSquares[11]->set_east_neighbor(mapSquares[7]);
-	mapSquares[11]->set_west_neighbor(mapSquares[5]);
+	mapSquares[11]->set_east_neighbor(mapSquares[12]);
+	mapSquares[11]->set_west_neighbor(mapSquares[10]);
+	mapSquares[11]->set_south_neighbor(mapSquares[16]);
 
-	mapSquares[12]->set_south_neighbor(mapSquares[16]);
+	mapSquares[12]->set_south_neighbor(mapSquares[17]);
 	mapSquares[12]->set_east_neighbor(mapSquares[13]);
 	mapSquares[12]->set_west_neighbor(mapSquares[11]);
 	mapSquares[12]->set_north_neighbor(mapSquares[7]);
 
-	mapSquares[13]->set_south_neighbor(mapSquares[17]);
+	mapSquares[13]->set_south_neighbor(mapSquares[18]);
 	mapSquares[13]->set_east_neighbor(mapSquares[14]);
 	mapSquares[13]->set_west_neighbor(mapSquares[12]);
 	mapSquares[13]->set_north_neighbor(mapSquares[8]);
 
 	mapSquares[14]->set_west_neighbor(mapSquares[13]);
-	mapSquares[14]->set_south_neighbor(mapSquares[9]);	
+	//mapSquares[14]->set_south_neighbor(NULL);	
+	//mapSquares[14]->set_east_neighbor(NULL);
+	mapSquares[14]->set_north_neighbor(mapSquares[9]);
 
 	//fourth row
 	mapSquares[16]->set_south_neighbor(mapSquares[21]);
 	mapSquares[16]->set_east_neighbor(mapSquares[17]);
 	mapSquares[16]->set_north_neighbor(mapSquares[11]);
+	//mapSquares[16]->set_west_neighbor(NULL);
 
 	mapSquares[17]->set_north_neighbor(mapSquares[12]);
 	mapSquares[17]->set_east_neighbor(mapSquares[18]);
@@ -143,9 +159,12 @@ Map::Map(std::string buildableColor, double height, double width, double squareS
 	mapSquares[18]->set_south_neighbor(mapSquares[23]);
 	mapSquares[18]->set_west_neighbor(mapSquares[17]);
 	mapSquares[18]->set_north_neighbor(mapSquares[13]);
+	//mapSquares[18]->set_east_neighbor(NULL);
 
 	mapSquares[21]->set_east_neighbor(mapSquares[22]);
 	mapSquares[21]->set_north_neighbor(mapSquares[16]);
+	//mapSquares[21]->set_south_neighbor(NULL);
+	//mapSquares[21]->set_west_neighbor(NULL);
 
 	mapSquares[22]->set_west_neighbor(mapSquares[21]);
 	mapSquares[22]->set_south_neighbor(mapSquares[27]);		
@@ -154,13 +173,18 @@ Map::Map(std::string buildableColor, double height, double width, double squareS
 
 	mapSquares[23]->set_west_neighbor(mapSquares[22]);
 	mapSquares[23]->set_north_neighbor(mapSquares[18]);
+	//mapSquares[23]->set_east_neighbor(NULL);
+	//mapSquares[23]->set_south_neighbor(NULL);
 
 	mapSquares[27]->set_north_neighbor(mapSquares[22]);
+	//mapSquares[27]->set_west_neighbor(NULL);
+	//mapSquares[27]->set_east_neighbor(NULL);
+	//mapSquares[27]->set_south_neighbor(NULL);
 
 	//set up Units
-	player = new Unit(0, mapSquares[17]->get_location(), playerColor, mapSquares[17]);
-	statueTop = new Unit(1, mapSquares[2]->get_location(), statueColor, mapSquares[2]);
-	statueBottom = new Unit(0, mapSquares[27]->get_location(), statueColor, mapSquares[27]);
+	player = new Unit("north", mapSquares[17]->get_location(), playerColor, mapSquares[17]);
+	statueTop = new Unit("south", mapSquares[2]->get_location(), statueColor, mapSquares[2]);
+	statueBottom = new Unit("north", mapSquares[27]->get_location(), statueColor, mapSquares[27]);
 
 }
 

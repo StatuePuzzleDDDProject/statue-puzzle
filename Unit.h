@@ -21,19 +21,14 @@ class Unit {
 public:
 
 	Unit(string orientation, Point point, string color, Square* square);
-
-private:
-
-string orientation; //0:North 1:South 2:East 3:West
-Point llposition; 
-string color;
-Square* square;
-
 void turn(string direction); 
 
-void move();
+bool move();
 
 string getOrientation();
+
+void revert();
+void redraw();
 
 void setOrientation(string orientation);
 
@@ -49,15 +44,26 @@ string getColor();
 
 void setColor(string color);
 
-void moveNorth();
-void moveSouth();
-void moveEast();
-void moveWest();
+bool moveNorth();
+bool moveSouth();
+bool moveEast();
+bool moveWest();
 
 void turnNorth();
 void turnSouth();
 void turnEast();
 void turnWest();
+
+private:
+
+string orientation; //0:North 1:South 2:East 3:West
+Point llposition; 
+string color;
+Square* square;
+Point oldLLPos;
+Square* oldSquare;
+
+
 };
 
 #endif 

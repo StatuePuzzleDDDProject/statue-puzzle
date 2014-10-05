@@ -73,18 +73,18 @@ Map::Map(std::string buildableColor, double height, double width, double squareS
 	//mapSquares[0]->set_north_neighbor(NULL);
 
 	mapSquares[1]->set_south_neighbor(mapSquares[6]);
-	mapSquares[1]->set_east_neighbor(mapSquares[2]);
+	//mapSquares[1]->set_east_neighbor(mapSquares[2]);
 	mapSquares[1]->set_west_neighbor(mapSquares[0]);
 	//mapSquares[1]->set_north_neighbor(NULL);
 
-	mapSquares[2]->set_south_neighbor(mapSquares[7]);
-	mapSquares[2]->set_east_neighbor(mapSquares[3]);
-	mapSquares[2]->set_west_neighbor(mapSquares[1]);
+	//mapSquares[2]->set_south_neighbor(mapSquares[7]);
+	//mapSquares[2]->set_east_neighbor(mapSquares[3]);
+	//mapSquares[2]->set_west_neighbor(mapSquares[1]);
 	//mapSquares[2]->set_north_neighbor(NULL);
 
 	mapSquares[3]->set_south_neighbor(mapSquares[8]);
 	mapSquares[3]->set_east_neighbor(mapSquares[4]);
-	mapSquares[3]->set_west_neighbor(mapSquares[2]);
+	//mapSquares[3]->set_west_neighbor(mapSquares[2]);
 	//mapSquares[3]->set_north_neighbor(NULL);
 
 	mapSquares[4]->set_west_neighbor(mapSquares[3]);
@@ -106,7 +106,7 @@ Map::Map(std::string buildableColor, double height, double width, double squareS
 	mapSquares[7]->set_south_neighbor(mapSquares[12]);
 	mapSquares[7]->set_east_neighbor(mapSquares[8]);
 	mapSquares[7]->set_west_neighbor(mapSquares[6]);
-	mapSquares[7]->set_north_neighbor(mapSquares[2]);
+	//mapSquares[7]->set_north_neighbor(mapSquares[2]);
 
 	mapSquares[8]->set_south_neighbor(mapSquares[13]);
 	mapSquares[8]->set_east_neighbor(mapSquares[9]);
@@ -182,7 +182,7 @@ Map::Map(std::string buildableColor, double height, double width, double squareS
 
 	//set up Units
 	player = new Unit("north", mapSquares[17]->get_location(), playerColor, mapSquares[17]);
-	statueTop = new Unit("south", mapSquares[2]->get_location(), statueColor, mapSquares[2]);
+	statueTop = new Unit("south", mapSquares[7]->get_location(), statueColor, mapSquares[7]);
 	statueBottom = new Unit("north", mapSquares[27]->get_location(), statueColor, mapSquares[27]);
 
 }
@@ -231,7 +231,7 @@ void Map::drawSquares() {
 
 void Map::drawUnits() {
 	drawNorthUnit(SQUARE_SIZE, mapSquares[17]->get_location(), playerColor);
-	drawSouthUnit(SQUARE_SIZE, mapSquares[2]->get_location(), statueColor);
+	drawSouthUnit(SQUARE_SIZE, mapSquares[7]->get_location(), statueColor);
 	drawNorthUnit(SQUARE_SIZE, mapSquares[27]->get_location(), statueColor);
 }
 

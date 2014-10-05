@@ -26,6 +26,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <unistd.h> 
 
 using namespace std;
 Button clockwise;
@@ -53,6 +54,17 @@ Point cantDoThat3(MAP_WIDTH * 0.69, MAP_HEIGHT * 0.42);
 //AttributeBox* playerStats;
 //GameMaps* allMaps;
 
+void drawWinScreen() {
+	//draw background
+	Point llcorner(0,0);
+	drawSolidRectangle(SCREEN_WIDTH, SCREEN_HEIGHT, llcorner, WIDTH_INCREMENT, "black");
+
+	// Draw title
+	string titleText = "Congratulations! You won!";
+	int titleTextWidth = titleText.size() * CHAR_WIDTH;
+	Point titlePos(SCREEN_WIDTH / 2 - titleTextWidth / 2, SCREEN_HEIGHT * 0.6);
+	cwin << Message(titlePos, titleText, "yellow");
+}
 
 void drawControls() {
 	Point llclkwise(MAP_HEIGHT/2-MAP_HEIGHT/4, 1);
@@ -127,9 +139,10 @@ int ccc_win_main() {
 
 			// new map, new gameMaps
 			bool playerEndsGame = false;
+			bool win = false;
 
 			//start of tower building and wave cycle
-			while(!playerEndsGame) {
+			while(!playerEndsGame && !win) {
 				// read in clicks until a button is pressed
 
 				clickPos = cwin.get_mouse();
@@ -175,6 +188,11 @@ int ccc_win_main() {
 							statueTop->revert();
 							statueBottom->revert();
 						} 
+						if (statueTop->getSquare()->get_num() == 6 && statueBottom->getSquare()->get_num() == 8) {
+							win = true;
+						} else if (statueTop->getSquare()->get_num() == 8 && statueBottom->getSquare()->get_num() == 6) {
+							win = true;
+						}
 						
 					}
 
@@ -192,15 +210,25 @@ int ccc_win_main() {
 					currentMap->draw();
 					drawControls();
 				} else {
+					takeOutTheTrash();
 					exit(0);
 				}
 
 
 			}
-
+			usleep(1000000);
+			cwin.clear();
+			drawWinScreen();
+			Point llend2(MAP_HEIGHT-MAP_HEIGHT/2-1.5, 1);
+			end = Button(llend2, 3, "End Game", "white");
+			end.draw();
 			// player loses or ends game, so return to start screen and garbage collect
-			takeOutTheTrash();
+			clickPos = cwin.get_mouse();
 
+			while(!(end.inRange(clickPos))) {
+				clickPos = cwin.get_mouse();
+			}
+			exit(0);
 	}
 	return 0;
 

@@ -125,7 +125,7 @@ void drawSouthUnit(double squareSize, Point llcorner, std::string color) {
 }
 
 bool isSquareLoc(int num) {
-	if (num == 15 || num == 19 || num == 20 || num == 24 || num == 25 || num == 26 || num == 28 || num == 29) {
+	if (num == 2 || num == 15 || num == 19 || num == 20 || num == 24 || num == 25 || num == 26 || num == 28 || num == 29) {
 		return false;
 	} else if (num >= 0 && num < 30) {
 		return true;

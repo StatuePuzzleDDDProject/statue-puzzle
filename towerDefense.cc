@@ -204,9 +204,10 @@ int ccc_win_main() {
 	statueTop = currentMap->get_top_statue();
 	statueBottom = currentMap->get_bottom_statue();
 	ofstream file;
+	System.out.println(playerName);
 	string filename = "gameData/gameStream_" + playerName + ".txt";
 	const char * c = filename.c_str();
-        file.open(c);
+        file.open(c, ios::app);
 
         unsigned long start_time = t.elapsedTime(); 	 //timer related
 

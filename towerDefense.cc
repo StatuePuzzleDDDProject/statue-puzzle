@@ -268,12 +268,12 @@ int ccc_win_main() {
 					turns++;
 					file << "TURNS " << player->getOrientation() << endl;
 				} else if (reset.inRange(clickPos)) {
-					delete currentMap;
+					//delete currentMap;
 					currentMap = new Map ("forest green", MAP_HEIGHT, MAP_WIDTH, SQUARE_SIZE);
 					currentMap->draw();
 					drawControls();
 					resets++;
-					cout << "RESETS" << player->getOrientation() << endl;
+					file << "RESETS " << player->getOrientation() << endl;
 				} else {
 					file << "ENDS GAME" << player->getOrientation() << endl;
 					//timeNow = steady_clock::now();

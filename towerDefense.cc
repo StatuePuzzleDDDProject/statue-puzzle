@@ -63,6 +63,7 @@ string statueBottomDir = "north";
 Unit* player;
 Unit* statueTop;
 Unit* statueBottom;
+string playerName;
 //steady_clock::time_point prevTime;
 //steady_clock::time_point timeNow;
 //ConstructionBox towerBox;
@@ -80,6 +81,24 @@ void drawWinScreen() {
 	Point titlePos(SCREEN_WIDTH / 2 - titleTextWidth / 2, SCREEN_HEIGHT * 0.6);
 	cwin << Message(titlePos, titleText, "yellow");
 }
+
+void drawNameScreen() {
+	//draw background
+	Point llcorner(0,0);
+	drawSolidRectangle(SCREEN_WIDTH, SCREEN_HEIGHT, llcorner, WIDTH_INCREMENT, "black");
+
+	// Draw title
+	string titleText = "Data-Driven Gaming";
+	int titleTextWidth = titleText.size() * CHAR_WIDTH;
+	Point titlePos(SCREEN_WIDTH / 2 - titleTextWidth / 2, SCREEN_HEIGHT - 5 * CHAR_OFFSET);
+	cwin << Message(titlePos, titleText, "yellow");
+
+	// Draw prompt to enter name
+	cwin << Message(llcorner, "", "black");
+	string playerName = cwin.get_string("Enter a name: ");
+
+}
+
 
 void drawControls() {
 	Point llclkwise(MAP_HEIGHT/2-MAP_HEIGHT/4, 1);
@@ -164,8 +183,9 @@ class timer {
 
 int ccc_win_main() {
 	cwin.coord(0,30,30,0);
-	// player starts new game, enters a name
-	//drawStartScreen();
+	player starts new game, enters a name
+	drawStartScreen();
+	cwin.clear();
 
 	currentMap = new Map ("forest green", MAP_HEIGHT, MAP_WIDTH, SQUARE_SIZE);
 	drawMap(currentMap);

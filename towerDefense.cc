@@ -177,7 +177,7 @@ class timer {
 		}
 
 		unsigned long elapsedTime() {
-			return ((unsigned long) clock() - begTime) / CLOCKS_PER_SEC;
+			return (((unsigned long) clock() - begTime) / CLOCKS_PER_SEC)*1000;
 		}
 };
 
@@ -235,6 +235,7 @@ int ccc_win_main() {
 					bool hasMoved = player->move();
 					moves++;
 					file << "MOVES " << player->getOrientation() << endl;
+					file << "TIMESTAMP: " << t.elapsedTime() << endl;
 					// if player can move
 					if (hasMoved) {
 						drawSolidRectangle(10, 5, cantDoThat3,WIDTH_INCREMENT, "forest green");
@@ -282,12 +283,14 @@ int ccc_win_main() {
 					statueBottom->turn("right");
 					turns++;
 					file << "TURNS " << player->getOrientation() << endl;
+					file << "TIMESTAMP: " << t.elapsedTime() << endl;
 				} else if (counterClockwise.inRange(clickPos)) {
 					player->turn("left");
 					statueTop->turn("left");
 					statueBottom->turn("left");
 					turns++;
 					file << "TURNS " << player->getOrientation() << endl;
+					file << "TIMESTAMP: " << t.elapsedTime() << endl;
 				} else if (reset.inRange(clickPos)) {
 					//delete currentMap;
 					currentMap = new Map ("forest green", MAP_HEIGHT, MAP_WIDTH, SQUARE_SIZE);
@@ -295,6 +298,7 @@ int ccc_win_main() {
 					drawControls();
 					resets++;
 					file << "RESETS " << player->getOrientation() << endl;
+					file << "TIMESTAMP: " << t.elapsedTime() << endl;
 				} else {
 					file << "ENDS GAME" << player->getOrientation() << endl;
 					//timeNow = steady_clock::now();
@@ -306,12 +310,10 @@ int ccc_win_main() {
 					file << "TURNS: " << turns << endl;
 					file << "MOVES: " << moves << endl;
 					file << "RESETS: " << resets << endl;
-					file << "END TIME: " << t.elapsedTime();  //timer related
+					unsigned long end_time = t.elapsedTime();
+					file << "TIMESTAMP: " << end_time << endl;
+					file << "DURATION: " << end_time-start_time << endl;
 					
-					const long double sysTime = time(0);  //timer related-2
-                        		const long double sysTimeMS = sysTime*1000;  //timer related-2
-					file << sysTimeMS;  //timer related-2
- 					file << "SYSTEM TIME: " << sysTimeMS;  //timer related-2
 
 					file.close();
 					takeOutTheTrash();
@@ -337,6 +339,9 @@ int ccc_win_main() {
 			file << "TURNS: " << turns << endl;
 			file << "MOVES: " << moves << endl;
 			file << "RESETS: " << resets << endl;
+			unsigned long end_time = t.elapsedTime();
+			file << "TIMESTAMP: " << end_time << endl;
+			file << "DURATION: " << end_time - start_time << endl;
 			file.close();
 			//duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;	
 			//cout << "GAME TIME: " << duration << endl;		

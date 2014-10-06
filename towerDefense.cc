@@ -31,6 +31,7 @@
 //#include <ctime>
 //#include <ratio>
 //#include <chrono>
+#include<time.h>
 
 using namespace std;
 Button clockwise;
@@ -148,6 +149,19 @@ void takeOutTheTrash() {
 	delete player;
 }
 
+class timer {
+	private:
+		unsigned long begTime;
+	public:
+		void start() {
+			begTime = clock();
+		}
+
+		unsigned long elapsedTime() {
+			return ((unsigned long) clock() - begTime) / CLOCKS_PER_SEC;
+		}
+};
+
 int ccc_win_main() {
 	cwin.coord(0,30,30,0);
 	// player starts new game, enters a name
@@ -162,11 +176,17 @@ int ccc_win_main() {
 	int turns = 0;
 	int resets = 0;
 	//prevTime = 0;
+
+	timer t;                     //timer related
+	t.start(); 			 //timer related
+	
 	player = currentMap->get_player();
 	statueTop = currentMap->get_top_statue();
 	statueBottom = currentMap->get_bottom_statue();
 	ofstream file;
-   file.open("gameStream.txt");
+        file.open("gameStream.txt");
+
+        unsigned long start_time = t.elapsedTime(); 	 //timer related
 
 	while(true) {
 			
@@ -265,6 +285,13 @@ int ccc_win_main() {
 					file << "TURNS: " << turns << endl;
 					file << "MOVES: " << moves << endl;
 					file << "RESETS: " << resets << endl;
+					file << "END TIME: " << t.elapsedTime();  //timer related
+					
+					const long double sysTime = time(0);  //timer related-2
+                        		const long double sysTimeMS = sysTime*1000;  //timer related-2
+					file << sysTimeMS;  //timer related-2
+ 					file << "SYSTEM TIME: " << sysTimeMS;  //timer related-2
+
 					file.close();
 					takeOutTheTrash();
 					exit(0);
@@ -306,6 +333,7 @@ int ccc_win_main() {
 			}
 			exit(0);
 	}
+	
 	return 0;
 
 }

@@ -204,8 +204,9 @@ int ccc_win_main() {
 	statueTop = currentMap->get_top_statue();
 	statueBottom = currentMap->get_bottom_statue();
 	ofstream file;
-	string filename = "gameData/gameStream_" + playerName;
-        file.open("gameStream.txt");
+	string filename = "gameData/gameStream_" + playerName + ".txt";
+	const char * c = filename.c_str();
+        file.open(c);
 
         unsigned long start_time = t.elapsedTime(); 	 //timer related
 
@@ -334,7 +335,7 @@ int ccc_win_main() {
 
 			}
   			//file << "TIME: " << time_span.count() << endl;
- 			file << "\n END GAME - WIN";
+ 			file << "\nEND GAME - WIN" << endl;;
 			file << "ACTIONS: " << clicks << endl;
 			file << "TURNS: " << turns << endl;
 			file << "MOVES: " << moves << endl;

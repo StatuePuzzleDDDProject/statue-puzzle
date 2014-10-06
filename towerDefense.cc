@@ -126,8 +126,28 @@ void takeOutTheTrash() {
 }
 
 int ccc_win_main() {
-	ofstream file;
+
+	/*if(argc!=2)
+        {
+		cout<<"Please use this format: ./towerDefense <insert-your-name>";
+                exit(0);
+        }
+	
+        string name = argv[1];*/
+
+        ofstream file;
+	//string file_name = "gameStream_"+name+".txt";
+		
 	file.open("gameStream.txt");
+	/* File columns:
+	0: Move made (N, S, E, W)
+	1: Current position of the player
+	2: Current position of statueTop
+	3: Current position of statueBottom
+	4: Revert indicator - Statues or player,statue were reverted
+	6: Block indicator - Player tried to move to same place as statue indicator
+	*/	
+
         file << "\n NEW GAME";
 
 	cwin.coord(0,30,30,0);
@@ -235,7 +255,8 @@ int ccc_win_main() {
 			while(!(end.inRange(clickPos))) {
 				clickPos = cwin.get_mouse();
 			}
-			file << "END GAME - WIN";
+			if(win == true)
+				file << "END GAME - WIN";
 			file.close();
 			exit(0);
 	}

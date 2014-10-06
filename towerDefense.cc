@@ -45,6 +45,9 @@ Button cantMoveOntoStatue3;
 Button crushedByStatue1;
 Button crushedByStatue2;
 Button crushedByStatue3;
+Button cantMoveOffScreen1;
+Button cantMoveOffScreen2;
+Button cantMoveOffScreen3;
 //ConstructionBox* buttonBox;
 //Button newGame;
 //Button quit;
@@ -118,6 +121,9 @@ void drawControls() {
 	crushedByStatue1 = Button(cantDoThat1, 1.2, "Can't move there.", "red");
 	crushedByStatue2 = Button(cantDoThat2, 1.2, "You'd be crushed", "red");
 	crushedByStatue3 = Button(cantDoThat3, 1.2, "by the statue!", "red");
+	cantMoveOffScreen1 = Button(cantDoThat1, 1.2, "You can't move", "red");
+	cantMoveOffScreen2 = Button(cantDoThat2, 1.2, "off the edge", "red");
+	cantMoveOffScreen3 = Button(cantDoThat3, 1.2, "of the board!", "red");
 	counterClockwise.draw();
 	clockwise.draw();
 	reset.draw();
@@ -136,6 +142,13 @@ void drawCrushed() {
 	crushedByStatue2.draw();
 	crushedByStatue3.draw();
 }
+
+void drawOffScreen() {
+	cantMoveOffScreen1.draw();
+	cantMoveOffScreen2.draw();
+	cantMoveOffScreen3.draw();
+}
+
 
 void drawInterface() {
     //playerStats->draw();
@@ -204,7 +217,6 @@ int ccc_win_main() {
 	statueTop = currentMap->get_top_statue();
 	statueBottom = currentMap->get_bottom_statue();
 	ofstream file;
-	System.out.println(playerName);
 	string filename = "gameData/gameStream_" + playerName + ".txt";
 	const char * c = filename.c_str();
         file.open(c, ios::app);
@@ -277,6 +289,8 @@ int ccc_win_main() {
 							win = true;
 						}
 						
+					} else {
+						drawOffScreen();
 					}
 
 				} else if (clockwise.inRange(clickPos)) {

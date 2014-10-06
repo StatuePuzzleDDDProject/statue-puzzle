@@ -173,11 +173,11 @@ class timer {
 		unsigned long begTime;
 	public:
 		void start() {
-			begTime = clock();
+			begTime = time(0)*1000;
 		}
 
 		unsigned long elapsedTime() {
-			return (((unsigned long) clock() - begTime) / CLOCKS_PER_SEC)*1000;
+			return ((unsigned long) time(0)*1000 - begTime);
 		}
 };
 

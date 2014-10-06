@@ -183,8 +183,8 @@ class timer {
 
 int ccc_win_main() {
 	cwin.coord(0,30,30,0);
-	player starts new game, enters a name
-	drawStartScreen();
+	//player starts new game, enters a name
+	drawNameScreen();
 	cwin.clear();
 
 	currentMap = new Map ("forest green", MAP_HEIGHT, MAP_WIDTH, SQUARE_SIZE);
@@ -204,6 +204,7 @@ int ccc_win_main() {
 	statueTop = currentMap->get_top_statue();
 	statueBottom = currentMap->get_bottom_statue();
 	ofstream file;
+	string filename = "gameData/gameStream_" + playerName;
         file.open("gameStream.txt");
 
         unsigned long start_time = t.elapsedTime(); 	 //timer related

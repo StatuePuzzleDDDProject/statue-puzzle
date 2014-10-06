@@ -28,6 +28,9 @@
 #include <sstream>
 #include <unistd.h> 
 #include <fstream>
+//#include <ctime>
+//#include <ratio>
+//#include <chrono>
 
 using namespace std;
 Button clockwise;
@@ -46,11 +49,21 @@ Button crushedByStatue3;
 //Button quit;
 //Button continueButton;
 Map* currentMap;
-Unit* player;
 Point clickPos(-1,-1);
 Point cantDoThat1(MAP_WIDTH * 0.69, MAP_HEIGHT * 0.5);
 Point cantDoThat2(MAP_WIDTH * 0.69, MAP_HEIGHT * 0.46);
 Point cantDoThat3(MAP_WIDTH * 0.69, MAP_HEIGHT * 0.42);
+int playerPos = 7;
+int statueTopPos = 17;
+int statueBottomPos = 27;
+string playerDir = "north";
+string statueTopDir = "south";
+string statueBottomDir = "north";
+Unit* player;
+Unit* statueTop;
+Unit* statueBottom;
+//steady_clock::time_point prevTime;
+//steady_clock::time_point timeNow;
 //ConstructionBox towerBox;
 //AttributeBox* playerStats;
 //GameMaps* allMaps;
@@ -119,6 +132,16 @@ bool buttonClicked() {
 	return (clockwise.inRange(clickPos) || counterClockwise.inRange(clickPos) || move.inRange(clickPos) || reset.inRange(clickPos) || end.inRange(clickPos));
 }
 
+void outputBoardConfig() {
+	playerPos = player->getSquare()->get_num();
+	statueTopPos = statueTop->getSquare()->get_num();
+	statueBottomPos = statueBottom->getSquare()->get_num();		
+	playerDir = player->getOrientation();
+	statueTopDir = statueTop->getOrientation();
+	statueBottomDir = statueBottom->getOrientation();			
+	cout << playerPos << "," << statueTopPos << "," << statueBottomPos << "," << playerDir << "," << statueTopDir << "," << statueBottomDir << endl;
+}
+
 
 void takeOutTheTrash() {
 	delete currentMap;
@@ -126,30 +149,6 @@ void takeOutTheTrash() {
 }
 
 int ccc_win_main() {
-
-	/*if(argc!=2)
-        {
-		cout<<"Please use this format: ./towerDefense <insert-your-name>";
-                exit(0);
-        }
-	
-        string name = argv[1];*/
-
-        ofstream file;
-	//string file_name = "gameStream_"+name+".txt";
-		
-	file.open("gameStream.txt");
-	/* File columns:
-	0: Move made (N, S, E, W)
-	1: Current position of the player
-	2: Current position of statueTop
-	3: Current position of statueBottom
-	4: Revert indicator - Statues or player,statue were reverted
-	6: Block indicator - Player tried to move to same place as statue indicator
-	*/	
-
-        file << "\n NEW GAME";
-
 	cwin.coord(0,30,30,0);
 	// player starts new game, enters a name
 	//drawStartScreen();
@@ -157,16 +156,29 @@ int ccc_win_main() {
 	currentMap = new Map ("forest green", MAP_HEIGHT, MAP_WIDTH, SQUARE_SIZE);
 	drawMap(currentMap);
 	drawInterface();
-	Unit* player;
-	Unit* statueTop;
-	Unit* statueBottom;
-	while(true) {
 
+	int clicks = 0;
+	int moves = 0;
+	int turns = 0;
+	int resets = 0;
+	//prevTime = 0;
+	player = currentMap->get_player();
+	statueTop = currentMap->get_top_statue();
+	statueBottom = currentMap->get_bottom_statue();
+	ofstream file;
+   file.open("gameStream.txt");
+
+	while(true) {
+			
 			// new map, new gameMaps
 			bool playerEndsGame = false;
 			bool win = false;
+			file << "ACTION 0" << endl;
+			file << "P, ST, SB" << endl;
+			file << 17 << "," << 7 << "," << 27 << "," << "north," << "south," << "north" << endl;
 
-			//start of tower building and wave cycle
+ 			//steady_clock::time_point start = steady_clock::now();
+  			//prevTime = start;
 			while(!playerEndsGame && !win) {
 				// read in clicks until a button is pressed
 
@@ -175,11 +187,13 @@ int ccc_win_main() {
 				while(!buttonClicked()) {
 					clickPos = cwin.get_mouse();
 				}
-				player = currentMap->get_player();
-				statueTop = currentMap->get_top_statue();
-				statueBottom = currentMap->get_bottom_statue();
+				clicks++;
+
+				file << "ACTION " << clicks << endl;
 				if (move.inRange(clickPos)) {
 					bool hasMoved = player->move();
+					moves++;
+					file << "MOVES " << player->getOrientation() << endl;
 					// if player can move
 					if (hasMoved) {
 						drawSolidRectangle(10, 5, cantDoThat3,WIDTH_INCREMENT, "forest green");
@@ -225,24 +239,59 @@ int ccc_win_main() {
 					player->turn("right");
 					statueTop->turn("right");
 					statueBottom->turn("right");
+					turns++;
+					file << "TURNS " << player->getOrientation() << endl;
 				} else if (counterClockwise.inRange(clickPos)) {
 					player->turn("left");
 					statueTop->turn("left");
 					statueBottom->turn("left");
+					turns++;
+					file << "TURNS " << player->getOrientation() << endl;
 				} else if (reset.inRange(clickPos)) {
 					delete currentMap;
 					currentMap = new Map ("forest green", MAP_HEIGHT, MAP_WIDTH, SQUARE_SIZE);
 					currentMap->draw();
 					drawControls();
+					resets++;
+					cout << "RESETS" << player->getOrientation() << endl;
 				} else {
+					file << "ENDS GAME" << player->getOrientation() << endl;
+					//timeNow = steady_clock::now();
+					//duration<double> time_span = duration_cast<duration<double>>(timeNow - prevTime);
+					//prevTime = timeNow;
+  					//file << "TIME: " << time_span.count() << endl;
+ 					file << "END GAME - ABORT" << endl;
+					file << "ACTIONS: " << clicks << endl;
+					file << "TURNS: " << turns << endl;
+					file << "MOVES: " << moves << endl;
+					file << "RESETS: " << resets << endl;
+					file.close();
 					takeOutTheTrash();
-                                        file << "\n END GAME - ABORT";
-                                        file.close();
 					exit(0);
 				}
+				playerPos = player->getSquare()->get_num();
+				statueTopPos = statueTop->getSquare()->get_num();
+				statueBottomPos = statueBottom->getSquare()->get_num();		
+				playerDir = player->getOrientation();
+				statueTopDir = statueTop->getOrientation();
+				statueBottomDir = statueBottom->getOrientation();			
+				file << playerPos << "," << statueTopPos << "," << statueBottomPos << "," << playerDir << "," << statueTopDir << "," << statueBottomDir << endl;
 
+ 				//timeNow = steady_clock::now();
+				//duration<double> time_span = duration_cast<duration<double>>(timeNow - prevTime);
+				//prevTime = timeNow;
+  				//file << "TIME: " << time_span.count() << endl;
 
 			}
+  			//file << "TIME: " << time_span.count() << endl;
+ 			file << "\n END GAME - WIN";
+			file << "ACTIONS: " << clicks << endl;
+			file << "TURNS: " << turns << endl;
+			file << "MOVES: " << moves << endl;
+			file << "RESETS: " << resets << endl;
+			file.close();
+			//duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;	
+			//cout << "GAME TIME: " << duration << endl;		
 			usleep(1000000);
 			cwin.clear();
 			drawWinScreen();
@@ -255,9 +304,6 @@ int ccc_win_main() {
 			while(!(end.inRange(clickPos))) {
 				clickPos = cwin.get_mouse();
 			}
-			if(win == true)
-				file << "END GAME - WIN";
-			file.close();
 			exit(0);
 	}
 	return 0;

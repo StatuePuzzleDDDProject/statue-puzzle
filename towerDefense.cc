@@ -27,6 +27,7 @@
 #include <vector>
 #include <sstream>
 #include <unistd.h> 
+#include <fstream>
 
 using namespace std;
 Button clockwise;
@@ -125,6 +126,10 @@ void takeOutTheTrash() {
 }
 
 int ccc_win_main() {
+	ofstream file;
+	file.open("gameStream.txt");
+        file << "\n NEW GAME";
+
 	cwin.coord(0,30,30,0);
 	// player starts new game, enters a name
 	//drawStartScreen();
@@ -211,6 +216,8 @@ int ccc_win_main() {
 					drawControls();
 				} else {
 					takeOutTheTrash();
+                                        file << "\n END GAME - ABORT";
+                                        file.close();
 					exit(0);
 				}
 
@@ -228,6 +235,8 @@ int ccc_win_main() {
 			while(!(end.inRange(clickPos))) {
 				clickPos = cwin.get_mouse();
 			}
+			file << "END GAME - WIN";
+			file.close();
 			exit(0);
 	}
 	return 0;

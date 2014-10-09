@@ -98,7 +98,7 @@ void drawNameScreen() {
 
 	// Draw prompt to enter name
 	cwin << Message(llcorner, "", "black");
-	string playerName = cwin.get_string("Enter a name: ");
+	playerName = cwin.get_string("Enter a name: ");
 
 }
 
@@ -208,6 +208,16 @@ int ccc_win_main() {
 	int moves = 0;
 	int turns = 0;
 	int resets = 0;
+	int movesOffBoard = 0;
+	int movesIntoStatue = 0;
+	int sameSquare = 0;
+	int turnC = 0;
+	int turnCC = 0;
+	int sameSquareStatues = 0;				
+	int statuesBlockEachOther = 0;
+	int movesOffBoardTStatue = 0;
+	int movesOffBoardBStatue = 0;
+
 	//prevTime = 0;
 
 	timer t;                     //timer related
@@ -228,8 +238,8 @@ int ccc_win_main() {
 			// new map, new gameMaps
 			bool playerEndsGame = false;
 			bool win = false;
+			//Board config order: player, statueTop, statueBottom
 			file << "ACTION 0" << endl;
-			file << "P, ST, SB" << endl;
 			file << 17 << "," << 7 << "," << 27 << "," << "north," << "south," << "north" << endl;
 
  			//steady_clock::time_point start = steady_clock::now();
@@ -258,18 +268,32 @@ int ccc_win_main() {
 							player->revert();
 							statueTop->redraw();
 							drawCantMove();
+							file << "MOVES INTO STATUE" << endl;
+							movesIntoStatue++;
 						} else if (player->getSquare() == statueBottom->getSquare()) {
 							player->revert();
 							statueBottom->redraw();		
-							drawCantMove();			
+							drawCantMove();		
+							file << "MOVES INTO STATUE" << endl;
+							movesIntoStatue++;	
 						} else {
-							statueTop->move();
+							bool hasMovedT = statueTop->move();
 							//if statues are adjacent and facing each other, don't let them move
+							if(!hasMovedT) {
+								file << "TOP STATUE CAN'T MOVE OFF SCREEN" << endl;
+								movesOffBoardTStatue++;
+							}
 							if(statueTop->getSquare() == statueBottom->getSquare()) {
 								statueTop->revert();
 								statueBottom->redraw();
+								file << "STATUES BLOCKING EACH OTHER" << endl;
+								statuesBlockEachOther++;
 							} else {
-								statueBottom->move();	
+								bool hasMovedB = statueBottom->move();
+								if(!hasMovedB) {
+									file << "BOTTOM STATUE CAN'T MOVE OFF SCREEN" << endl;
+									movesOffBoardBStatue++;
+								}	
 							}						
 						}
 
@@ -279,9 +303,13 @@ int ccc_win_main() {
 							statueBottom->revert();
 							player->revert();
 							drawCrushed();
+							file << "CRUSHED BY STATUE" << endl;
+							sameSquare++;
 						} else if (statueTop->getSquare() == statueBottom->getSquare()) {
 							statueTop->revert();
 							statueBottom->revert();
+							file << "STATUES MOVE ONTO SAME SQUARE" << endl;
+							sameSquareStatues++;
 						} 
 						if (statueTop->getSquare()->get_num() == 6 && statueBottom->getSquare()->get_num() == 8) {
 							win = true;
@@ -291,6 +319,8 @@ int ccc_win_main() {
 						
 					} else {
 						drawOffScreen();
+						file << "TRIES TO MOVE OFFSCREEN" << endl;
+						movesOffBoard++;
 					}
 
 				} else if (clockwise.inRange(clickPos)) {
@@ -298,6 +328,7 @@ int ccc_win_main() {
 					statueTop->turn("right");
 					statueBottom->turn("right");
 					turns++;
+					turnC++;
 					file << "TURNS " << player->getOrientation() << endl;
 					file << "TIMESTAMP: " << t.elapsedTime() << endl;
 				} else if (counterClockwise.inRange(clickPos)) {
@@ -305,15 +336,19 @@ int ccc_win_main() {
 					statueTop->turn("left");
 					statueBottom->turn("left");
 					turns++;
+					turnCC++;
 					file << "TURNS " << player->getOrientation() << endl;
 					file << "TIMESTAMP: " << t.elapsedTime() << endl;
 				} else if (reset.inRange(clickPos)) {
 					//delete currentMap;
 					currentMap = new Map ("forest green", MAP_HEIGHT, MAP_WIDTH, SQUARE_SIZE);
+					player = currentMap->get_player();
+					statueTop = currentMap->get_top_statue();
+					statueBottom = currentMap->get_bottom_statue();
 					currentMap->draw();
 					drawControls();
 					resets++;
-					file << "RESETS " << player->getOrientation() << endl;
+					file << "RESETS " << endl;
 					file << "TIMESTAMP: " << t.elapsedTime() << endl;
 				} else {
 					file << "ENDS GAME" << player->getOrientation() << endl;
@@ -322,13 +357,22 @@ int ccc_win_main() {
 					//prevTime = timeNow;
   					//file << "TIME: " << time_span.count() << endl;
  					file << "END GAME - ABORT" << endl;
-					file << "ACTIONS: " << clicks << endl;
-					file << "TURNS: " << turns << endl;
-					file << "MOVES: " << moves << endl;
+					file << "ACTIONS: " << clicks << endl; //number of button clicks
+					file << "TURNS: " << turns << endl; //number of turnCC's and turnC's
+					file << "TURNC: " << turnC << endl; //number of turnC's
+					file << "TURNCC: " << turnCC << endl; //number of turnCC's
+					file << "MOVES: " << moves << endl; //number of attempted moves
 					file << "RESETS: " << resets << endl;
+					file << "MOVES OFF BOARD: " << movesOffBoard << endl;
+					file << "MOVES INTO STATUE: " << movesIntoStatue << endl;
+					file << "PLAYER AND STATUE ON SAME SQUARE: " << sameSquare << endl;
+					file << "STATUES MOVE ONTO SAME SQUARE: " << sameSquareStatues << endl;
+					file << "STATUES BLOCK EACH OTHER: " << statuesBlockEachOther << endl;
+					file << "TOP STATUE EDGE OF BOARD: " << movesOffBoardTStatue << endl;
+					file << "BOTTOM STATUE EDGE OF BOARD: " << movesOffBoardBStatue << endl;
 					unsigned long end_time = t.elapsedTime();
 					file << "TIMESTAMP: " << end_time << endl;
-					file << "DURATION: " << end_time-start_time << endl;
+
 					
 
 					file.close();
@@ -351,13 +395,21 @@ int ccc_win_main() {
 			}
   			//file << "TIME: " << time_span.count() << endl;
  			file << "\nEND GAME - WIN" << endl;;
-			file << "ACTIONS: " << clicks << endl;
-			file << "TURNS: " << turns << endl;
-			file << "MOVES: " << moves << endl;
+			file << "ACTIONS: " << clicks << endl;//number of button clicks
+			file << "TURNS: " << turns << endl;//number of turnCC's and turnC's
+			file << "TURNC: " << turnC << endl; //number of turnC's
+			file << "TURNCC: " << turnCC << endl; //number of turnCC's
+			file << "MOVES: " << moves << endl;//number of attempted moves
 			file << "RESETS: " << resets << endl;
+			file << "MOVES OFF BOARD: " << movesOffBoard << endl;
+			file << "MOVES INTO STATUE: " << movesIntoStatue << endl;
+			file << "PLAYER AND STATUE ON SAME SQUARE: " << sameSquare << endl;
+			file << "STATUES MOVE ONTO SAME SQUARE: " << sameSquareStatues << endl;
+			file << "STATUES BLOCK EACH OTHER: " << statuesBlockEachOther << endl;
+			file << "TOP STATUE EDGE OF BOARD: " << movesOffBoardTStatue << endl;
+			file << "BOTTOM STATUE EDGE OF BOARD: " << movesOffBoardBStatue << endl;
 			unsigned long end_time = t.elapsedTime();
 			file << "TIMESTAMP: " << end_time << endl;
-			file << "DURATION: " << end_time - start_time << endl;
 			file.close();
 			//duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;	
 			//cout << "GAME TIME: " << duration << endl;		

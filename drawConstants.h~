@@ -14,7 +14,7 @@
 #include "Square.h"
 
 const double WIDTH_INCREMENT = 0.05;
-const double CHAR_OFFSET = 0.65;
+const double CHAR_OFFSET = 0.7;
 const double CHAR_WIDTH = 0.56;
 const double SQUARE_SIZE = 4;
 const double MAP_HEIGHT = 30;
@@ -23,6 +23,5 @@ const double BOARD_OFFSET_X = MAP_WIDTH * 0.175;
 const double BOARD_OFFSET_Y = MAP_HEIGHT * 0.2;
 const double SCREEN_WIDTH = MAP_WIDTH;
 const double SCREEN_HEIGHT = MAP_HEIGHT;
-Square* mapSquares[30];
 
 #endif /* DRAWCONSTANTS_H_ */

@@ -15,8 +15,7 @@
 #include <string>
 #include <vector>
 #include "Square.h"
-//#include "path.h"
-//#include "wave.h"
+#include "Unit.h"
 
 class Map {
 public:
@@ -33,7 +32,7 @@ public:
 
 	/* PURPOSE: draws this map in the window along with its path
 	*/
-	void draw();
+	void draw(bool isReset);
 
 	void drawSquares();
 

@@ -32,7 +32,7 @@ public:
 
 	/* PURPOSE: draws this map in the window along with its path
 	*/
-	void draw();
+	void draw(bool isRedraw);
 
 	void drawSquares();
 

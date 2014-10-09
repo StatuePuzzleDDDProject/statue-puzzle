@@ -48,6 +48,8 @@ Button crushedByStatue3;
 Button cantMoveOffScreen1;
 Button cantMoveOffScreen2;
 Button cantMoveOffScreen3;
+Button continueToGame;
+Button help;
 //ConstructionBox* buttonBox;
 //Button newGame;
 //Button quit;
@@ -102,14 +104,96 @@ void drawNameScreen() {
 
 }
 
+void drawHelpScreen(bool firstTime) {
+	//draw background
+	Point llcorner(0,0);
+	drawSolidRectangle(SCREEN_WIDTH, SCREEN_HEIGHT, llcorner, WIDTH_INCREMENT, "black");
+
+	// Draw title
+	string titleText = "How to Play";
+	int titleTextWidth = titleText.size() * CHAR_WIDTH;
+	Point titlePos(SCREEN_WIDTH / 2 - titleTextWidth / 2, SCREEN_HEIGHT - 3 * CHAR_OFFSET);
+	cwin << Message(titlePos, titleText, "yellow");
+
+	// Objectives
+	string objectiveText = "Objective:";
+	string goals1Text = "You are the blue arrow. Guide the two living";
+	string goals2Text = "statues (red arrows) to the two yellow squares on";
+	string goals3Text = "the game board. In order to win, you must get both"; 
+	string goals4Text = "statues on a yellow square at the same time.";
+
+	Point objPos(1, SCREEN_HEIGHT - 5 * CHAR_OFFSET);
+	Point goals1Pos(1, SCREEN_HEIGHT - 6 * CHAR_OFFSET);
+	Point goals2Pos(1, SCREEN_HEIGHT - 7 * CHAR_OFFSET);
+	Point goals3Pos(1, SCREEN_HEIGHT - 8 * CHAR_OFFSET);
+	Point goals4Pos(1, SCREEN_HEIGHT - 9 * CHAR_OFFSET);
+
+	cwin << Message(objPos, objectiveText, "yellow");
+	cwin << Message(goals1Pos, goals1Text, "white");
+	cwin << Message(goals2Pos, goals2Text, "white");
+	cwin << Message(goals3Pos, goals3Text, "white");
+	cwin << Message(goals4Pos, goals4Text, "white");
+
+	// Controls
+	string controlsText = "Controls:";
+	string controls1Text = "The direction of your arrow (blue) and the statues'";
+	string controls2Text = "(red) indicate the direction each is facing.";
+	string controls3Text = "Play the game using the five buttons at the bottom";
+	string controls4Text = "of the screen:";
+	string controls5Text = "Move - move everyone in the direction they are";
+	string controls6Text = "       currently facing.";
+	string controls7Text = "TurnC - turn everyone 90 degrees clockwise.";
+	string controls8Text = "TurnCC - turn everyone 90 degrees clockwise.";
+	string controls9Text = "Reset - Stuck? Start over from the beginning.";
+	string controls10Text = "End Game - Quits the game and ends your session.";
+
+
+	Point controlsPos(1, SCREEN_HEIGHT - 11 * CHAR_OFFSET);
+	Point controls1Pos(1, SCREEN_HEIGHT - 12 * CHAR_OFFSET);
+	Point controls2Pos(1, SCREEN_HEIGHT - 13 * CHAR_OFFSET);
+	Point controls3Pos(1, SCREEN_HEIGHT - 14 * CHAR_OFFSET);
+	Point controls4Pos(1, SCREEN_HEIGHT - 15 * CHAR_OFFSET);
+	Point controls5Pos(1, SCREEN_HEIGHT - 16 * CHAR_OFFSET);
+	Point controls6Pos(1, SCREEN_HEIGHT - 17 * CHAR_OFFSET);
+	Point controls7Pos(1, SCREEN_HEIGHT - 18 * CHAR_OFFSET);
+	Point controls8Pos(1, SCREEN_HEIGHT - 19 * CHAR_OFFSET);
+	Point controls9Pos(1, SCREEN_HEIGHT - 20 * CHAR_OFFSET);
+	Point controls10Pos(1, SCREEN_HEIGHT - 21 * CHAR_OFFSET);
+
+	cwin << Message(controlsPos, controlsText, "yellow");
+	cwin << Message(controls1Pos, controls1Text, "white");
+	cwin << Message(controls2Pos, controls2Text, "white");
+	cwin << Message(controls3Pos, controls3Text, "white");
+	cwin << Message(controls4Pos, controls4Text, "white");
+	cwin << Message(controls5Pos, controls5Text, "orange");
+	cwin << Message(controls6Pos, controls6Text, "orange");
+	cwin << Message(controls7Pos, controls7Text, "orange");
+	cwin << Message(controls8Pos, controls8Text, "orange");
+	cwin << Message(controls9Pos, controls9Text, "orange");
+	cwin << Message(controls10Pos, controls10Text, "orange");
+
+	//continue button
+	string continueButtonText;
+	if (firstTime) {
+		continueButtonText = "Play Game!";
+	} else {
+		continueButtonText = "Back to Game";
+	}
+	Point llToGame(SCREEN_WIDTH/2 - (continueButtonText.size() * CHAR_WIDTH) / 2, 1);
+	continueToGame = Button(llToGame, 3, continueButtonText, "yellow");
+	continueToGame.draw();
+}
+
 
 void drawControls() {
-	Point llclkwise(MAP_HEIGHT/2-MAP_HEIGHT/4, 1);
-	Point llcclkwise(MAP_HEIGHT/4-MAP_HEIGHT/8, 1);
-	Point llreset(MAP_HEIGHT/2+MAP_HEIGHT/8, 1);
-	Point llmove(MAP_HEIGHT-MAP_HEIGHT/2-1.5, 1);
-	Point llend(MAP_HEIGHT-5,1);
+	Point llHelp(1,1);
+	Point llreset(5, 1);
+	Point llclkwise(9, 1);
+	Point llcclkwise(13, 1);
+	Point llmove(17, 1);
+	Point llend(21,1);
 
+	help = Button(llHelp, 3, "Help", "white");
 	end = Button(llend, 3, "End Game", "white"); //reset+write to log file
 	clockwise = Button(llclkwise, 3, "TurnC", "white");
 	counterClockwise = Button(llcclkwise, 3, "TurnCC", "white");
@@ -129,6 +213,16 @@ void drawControls() {
 	reset.draw();
 	move.draw();
 	end.draw();
+	help.draw();
+}
+
+void redrawControls() {
+	counterClockwise.draw();
+	clockwise.draw();
+	reset.draw();
+	move.draw();
+	end.draw();
+	help.draw();
 }
 
 void drawCantMove() {
@@ -151,18 +245,17 @@ void drawOffScreen() {
 
 
 void drawInterface() {
-    //playerStats->draw();
     drawControls();
 
     
 }
 
-void drawMap(Map* map) {
-	map->draw();
+void drawMap(Map* map, bool isRedraw) {
+	map->draw(isRedraw);
 }
 
 bool buttonClicked() {
-	return (clockwise.inRange(clickPos) || counterClockwise.inRange(clickPos) || move.inRange(clickPos) || reset.inRange(clickPos) || end.inRange(clickPos));
+	return (clockwise.inRange(clickPos) || counterClockwise.inRange(clickPos) || move.inRange(clickPos) || reset.inRange(clickPos) || end.inRange(clickPos) || help.inRange(clickPos));
 }
 
 void outputBoardConfig() {
@@ -196,15 +289,36 @@ class timer {
 
 int ccc_win_main() {
 	cwin.coord(0,30,30,0);
+
 	//player starts new game, enters a name
 	drawNameScreen();
 	cwin.clear();
 
+	//set up data collection
+	ofstream file;
+	string filename = "gameData/gameStream_" + playerName + ".txt";
+	const char * c = filename.c_str();
+        file.open(c, ios::app);
+
+	//help screen shown
+	timer helpTimer; // time how long player spends in help screen
+	helpTimer.start(); 
+	drawHelpScreen(true);
+	clickPos = cwin.get_mouse();
+
+	while(!continueToGame.inRange(clickPos)) {
+			clickPos = cwin.get_mouse();
+	}
+	unsigned long timeInFirstHelp = helpTimer.elapsedTime();
+	
+	cwin.clear();
+
 	currentMap = new Map ("forest green", MAP_HEIGHT, MAP_WIDTH, SQUARE_SIZE);
-	drawMap(currentMap);
+	drawMap(currentMap, false);
 	drawInterface();
 
 	int clicks = 0;
+	int helpClicked = 0;
 	int moves = 0;
 	int turns = 0;
 	int resets = 0;
@@ -222,16 +336,14 @@ int ccc_win_main() {
 
 	timer t;                     //timer related
 	t.start(); 			 //timer related
+
 	
 	player = currentMap->get_player();
 	statueTop = currentMap->get_top_statue();
 	statueBottom = currentMap->get_bottom_statue();
-	ofstream file;
-	string filename = "gameData/gameStream_" + playerName + ".txt";
-	const char * c = filename.c_str();
-        file.open(c, ios::app);
 
-        unsigned long start_time = t.elapsedTime(); 	 //timer related
+
+        //unsigned long start_time = t.elapsedTime(); 	 //timer related
 
 	while(true) {
 			
@@ -345,11 +457,27 @@ int ccc_win_main() {
 					player = currentMap->get_player();
 					statueTop = currentMap->get_top_statue();
 					statueBottom = currentMap->get_bottom_statue();
-					currentMap->draw();
+					currentMap->draw(false);
 					drawControls();
 					resets++;
-					file << "RESETS " << player->getOrientation() << endl;
+					file << "RESETS " << endl;
 					file << "TIMESTAMP: " << t.elapsedTime() << endl;
+				} else if (help.inRange(clickPos)) {
+					helpClicked++;
+					cwin.clear();
+					drawHelpScreen(false);
+					helpTimer.start(); 
+					clickPos = cwin.get_mouse();
+					while(!continueToGame.inRange(clickPos)) {
+						clickPos = cwin.get_mouse();
+					}
+					file << "TIME IN HELP SCREEN: " << helpTimer.elapsedTime();
+					cwin.clear();
+					drawMap(currentMap, true);
+					redrawControls();
+					player->redraw();
+					statueTop->redraw();
+					statueBottom->redraw();
 				} else {
 					file << "ENDS GAME" << player->getOrientation() << endl;
 					//timeNow = steady_clock::now();
@@ -357,6 +485,8 @@ int ccc_win_main() {
 					//prevTime = timeNow;
   					//file << "TIME: " << time_span.count() << endl;
  					file << "END GAME - ABORT" << endl;
+					file << "TIME IN FIRST HELP SCREEN: " << timeInFirstHelp << endl;
+					file << "HELP SCREEN ACCESSED: " << helpClicked << endl;
 					file << "ACTIONS: " << clicks << endl; //number of button clicks
 					file << "TURNS: " << turns << endl; //number of turnCC's and turnC's
 					file << "TURNC: " << turnC << endl; //number of turnC's
@@ -394,7 +524,9 @@ int ccc_win_main() {
 
 			}
   			//file << "TIME: " << time_span.count() << endl;
- 			file << "\nEND GAME - WIN" << endl;;
+ 			file << "\nEND GAME - WIN" << endl;
+			file << "TIME IN FIRST HELP SCREEN: " << timeInFirstHelp << endl;
+			file << "HELP SCREEN ACCESSED: " << helpClicked << endl;
 			file << "ACTIONS: " << clicks << endl;//number of button clicks
 			file << "TURNS: " << turns << endl;//number of turnCC's and turnC's
 			file << "TURNC: " << turnC << endl; //number of turnC's

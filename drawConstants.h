@@ -14,7 +14,7 @@
 #include "Square.h"
 
 const double WIDTH_INCREMENT = 0.05;
-const double CHAR_OFFSET = 0.65;
+const double CHAR_OFFSET = 1;
 const double CHAR_WIDTH = 0.56;
 const double SQUARE_SIZE = 4;
 const double MAP_HEIGHT = 30;

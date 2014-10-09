@@ -209,7 +209,7 @@ void Map::initializeWindow() {
 }
 
 // draws the map in the window with appropriate colors
-void Map::draw() {
+void Map::draw(bool isRedraw) {
 	for (double i = 0; i < WIDTH; i += 0.05) {
 		Point lineStart (i, 0);
 		Point lineEnd (i, HEIGHT);
@@ -217,7 +217,9 @@ void Map::draw() {
 		cwin << toDraw;
 	}
 	drawSquares();
-	drawUnits();
+	if(!isRedraw) {
+		drawUnits();
+	}
 
 }
 

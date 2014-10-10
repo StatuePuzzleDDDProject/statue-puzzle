@@ -100,9 +100,9 @@ void drawHelpScreen(bool firstTime) {
 	// Objectives
 	string objectiveText = "Objective:";
 	string goals1Text = "You (Blue Arrow) guide the 2 statues (Red Arrows)";
-	string goals2Text = "to yellow squares on the board";
-	string goals3Text = "In order to win, you must get both statues"; 
-	string goals4Text = "on yellow squares.";
+	string goals2Text = "to yellow squares on the board. In order to win,";
+	string goals3Text = "you must get both statues on yellow squares."; 
+	string goals4Text = "";
 
 	Point objPos(1, SCREEN_HEIGHT - 5 * CHAR_OFFSET);
 	Point goals1Pos(1, SCREEN_HEIGHT - 6 * CHAR_OFFSET);
@@ -120,12 +120,12 @@ void drawHelpScreen(bool firstTime) {
 	string controlsText = "Controls:";
 	string controls1Text = "The direction of arrows indicate the direction of";
 	string controls2Text = "movement. Use 'turn' to change directions.";
-	string controls3Text = "Play the game using the buttons at the bottom";
-	string controls4Text = "of the screen:";
+	string controls3Text = "Play the game by clicking on the buttons at the";
+	string controls4Text = "bottom of the screen:";
 	string controls5Text = "Move - move everyone in the direction they are";
 	string controls6Text = "       currently facing.";
 	string controls7Text = "TurnC - turn everyone 90 degrees clockwise.";
-	string controls8Text = "TurnCC - turn everyone 90 degrees anticlockwise.";
+	string controls8Text = "TurnCC - turn everyone 90 degrees counterclockwise.";
 	string controls9Text = "Reset - Stuck? Start over from the beginning.";
 	string controls10Text = "End Game - Quits the game and ends your session.";
 

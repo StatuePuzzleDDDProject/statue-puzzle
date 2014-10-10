@@ -5,22 +5,16 @@
  PURPOSE:          Tower Defense Game: Main Game
  COMPILER:         i686-apple-darwin10-g++-4.2.1 (GCC) 4.2.1 (Apple Inc. build 5664)
  TARGET:           Mac OS X
- PROGRAMMER:       Helen Wauck and Kevin Dexter
+ PROGRAMMER:       Helen Wauck
  START DATE:       01/21/2013
  *****************************************************************/
 #include "ccc_win.h"
 #include "Unit.h"
-//#include "type.h"
-//#include "tower.h"
-//#include "path.h"
 #include "map.h"
 #include "constructionBox.h"
-//#include "attributeBox.h"
 #include "button.h"
 #include "drawFunctions.h"
 #include "drawConstants.h"
-//#include "systemUpdater.h"
-//#include "gameMaps.h"
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -28,9 +22,6 @@
 #include <sstream>
 #include <unistd.h> 
 #include <fstream>
-//#include <ctime>
-//#include <ratio>
-//#include <chrono>
 #include<time.h>
 
 using namespace std;
@@ -50,10 +41,6 @@ Button cantMoveOffScreen2;
 Button cantMoveOffScreen3;
 Button continueToGame;
 Button help;
-//ConstructionBox* buttonBox;
-//Button newGame;
-//Button quit;
-//Button continueButton;
 Map* currentMap;
 Point clickPos(-1,-1);
 Point cantDoThat1(MAP_WIDTH * 0.69, MAP_HEIGHT * 0.5);
@@ -69,11 +56,6 @@ Unit* player;
 Unit* statueTop;
 Unit* statueBottom;
 string playerName;
-//steady_clock::time_point prevTime;
-//steady_clock::time_point timeNow;
-//ConstructionBox towerBox;
-//AttributeBox* playerStats;
-//GameMaps* allMaps;
 
 void drawWinScreen() {
 	//draw background
@@ -117,10 +99,10 @@ void drawHelpScreen(bool firstTime) {
 
 	// Objectives
 	string objectiveText = "Objective:";
-	string goals1Text = "You are the blue arrow. Guide the two living";
-	string goals2Text = "statues (red arrows) to the two yellow squares on";
-	string goals3Text = "the game board. In order to win, you must get both"; 
-	string goals4Text = "statues on a yellow square at the same time.";
+	string goals1Text = "You (Blue Arrow) guide the 2 statues (Red Arrows)";
+	string goals2Text = "to yellow squares on the board";
+	string goals3Text = "In order to win, you must get both statues"; 
+	string goals4Text = "on yellow squares.";
 
 	Point objPos(1, SCREEN_HEIGHT - 5 * CHAR_OFFSET);
 	Point goals1Pos(1, SCREEN_HEIGHT - 6 * CHAR_OFFSET);
@@ -136,14 +118,14 @@ void drawHelpScreen(bool firstTime) {
 
 	// Controls
 	string controlsText = "Controls:";
-	string controls1Text = "The direction of your arrow (blue) and the statues'";
-	string controls2Text = "(red) indicate the direction each is facing.";
-	string controls3Text = "Play the game using the five buttons at the bottom";
+	string controls1Text = "The direction of arrows indicate the direction of";
+	string controls2Text = "movement. Use 'turn' to change directions.";
+	string controls3Text = "Play the game using the buttons at the bottom";
 	string controls4Text = "of the screen:";
 	string controls5Text = "Move - move everyone in the direction they are";
 	string controls6Text = "       currently facing.";
 	string controls7Text = "TurnC - turn everyone 90 degrees clockwise.";
-	string controls8Text = "TurnCC - turn everyone 90 degrees clockwise.";
+	string controls8Text = "TurnCC - turn everyone 90 degrees anticlockwise.";
 	string controls9Text = "Reset - Stuck? Start over from the beginning.";
 	string controls10Text = "End Game - Quits the game and ends your session.";
 
